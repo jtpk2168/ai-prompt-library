@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient as createSupabaseAdmin } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function updateSession(request: NextRequest) {
@@ -31,8 +32,12 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  // Check if auth is required from site_settings table
-  const { data: authSetting } = await supabase
+  // Check if auth is required — use admin client to bypass RLS
+  const adminClient = createSupabaseAdmin(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+  const { data: authSetting } = await adminClient
     .from("site_settings")
     .select("value")
     .eq("key", "auth_required")
