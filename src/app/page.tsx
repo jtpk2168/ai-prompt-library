@@ -45,7 +45,7 @@ export default async function HomePage() {
       <Header />
       <main>
         {/* Hero — Dual product hub */}
-        <section className="border-b bg-gradient-to-b from-slate-50 to-white">
+        <section className="border-b bg-linear-to-b from-slate-50 to-white">
           <div className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
             <div className="text-center">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-yellow-200 bg-yellow-50 px-4 py-1.5 text-sm font-medium text-yellow-800">
