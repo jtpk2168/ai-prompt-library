@@ -248,13 +248,13 @@ export default async function HomePage() {
               </ul>
             </div>
 
-            {/* Contact */}
+            {/* Support */}
             <div>
               <h4 className="mb-3 text-sm font-semibold text-white">Support</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/admin" className="transition-colors hover:text-white">
-                    Admin Portal
+                  <Link href="/feedback" className="transition-colors hover:text-white">
+                    Submit Feedback
                   </Link>
                 </li>
               </ul>

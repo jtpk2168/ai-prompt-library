@@ -22,6 +22,7 @@ import {
   Menu,
   Video,
   Users,
+  MessageSquare,
 } from "lucide-react";
 
 const navItems = [
@@ -30,6 +31,7 @@ const navItems = [
   { href: "/admin/prompts", label: "Prompts", icon: FileText },
   { href: "/admin/categories", label: "Prompt Categories", icon: FolderOpen },
   { href: "/admin/courses", label: "Courses", icon: Video },
+  { href: "/admin/feedback", label: "Feedback", icon: MessageSquare },
 ];
 
 function NavContent({ onNavigate }: { onNavigate?: () => void }) {

@@ -1,7 +1,13 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-function getResend() {
-  return new Resend(process.env.RESEND_API_KEY);
+function getTransporter() {
+  return nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.SMTP_EMAIL,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
 }
 
 export async function sendWelcomeEmail({
@@ -14,10 +20,16 @@ export async function sendWelcomeEmail({
   password: string;
 }) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const fromEmail = process.env.SMTP_EMAIL;
 
-  const resend = getResend();
-  const { error } = await resend.emails.send({
-    from: "Vibe Coding <onboarding@resend.dev>",
+  if (!fromEmail || !process.env.SMTP_PASSWORD) {
+    throw new Error("SMTP_EMAIL and SMTP_PASSWORD must be set");
+  }
+
+  const transporter = getTransporter();
+
+  await transporter.sendMail({
+    from: `"Vibe Coding" <${fromEmail}>`,
     to: email,
     subject: "Welcome to Vibe Coding — Your Account is Ready",
     html: `
@@ -36,8 +48,4 @@ export async function sendWelcomeEmail({
       </div>
     `,
   });
-
-  if (error) {
-    throw new Error(`Failed to send welcome email: ${error.message}`);
-  }
 }
