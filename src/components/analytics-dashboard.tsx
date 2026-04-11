@@ -36,6 +36,8 @@ import {
   MessageSquare,
   BookOpen,
   CalendarDays,
+  Shield,
+  ShieldOff,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -102,6 +104,8 @@ export function AnalyticsDashboard() {
   const [customFrom, setCustomFrom] = useState("");
   const [customTo, setCustomTo] = useState("");
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [authRequired, setAuthRequired] = useState<boolean | null>(null);
+  const [authToggling, setAuthToggling] = useState(false);
 
   const fetchData = useCallback((range: TimeRange, cFrom?: string, cTo?: string) => {
     setLoading(true);
@@ -133,8 +137,23 @@ export function AnalyticsDashboard() {
 
   useEffect(() => {
     fetchData("30d");
+    fetch("/api/v1/admin/settings")
+      .then((r) => r.json())
+      .then((s) => setAuthRequired(s.auth_required !== "false"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleAuthToggle = async () => {
+    const newValue = !authRequired;
+    setAuthToggling(true);
+    await fetch("/api/v1/admin/settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ auth_required: newValue ? "true" : "false" }),
+    });
+    setAuthRequired(newValue);
+    setAuthToggling(false);
+  };
 
   const handleTimeChange = (range: TimeRange) => {
     setTimeRange(range);
@@ -244,6 +263,54 @@ export function AnalyticsDashboard() {
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <p className="text-sm text-muted-foreground">Platform overview</p>
       </div>
+
+      {/* Auth toggle */}
+      {authRequired !== null && (
+        <div
+          className={cn(
+            "mb-6 flex items-center justify-between rounded-xl border p-4",
+            authRequired
+              ? "border-emerald-200 bg-emerald-50"
+              : "border-amber-200 bg-amber-50"
+          )}
+        >
+          <div className="flex items-center gap-3">
+            {authRequired ? (
+              <Shield className="h-5 w-5 text-emerald-600" />
+            ) : (
+              <ShieldOff className="h-5 w-5 text-amber-600" />
+            )}
+            <div>
+              <p className="text-sm font-semibold">
+                {authRequired ? "Login Required" : "Open Access"}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {authRequired
+                  ? "Users must log in to access the site"
+                  : "Anyone can access the site without logging in"}
+              </p>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAuthToggle}
+            disabled={authToggling}
+            className={cn(
+              "gap-2",
+              authRequired
+                ? "border-emerald-300 hover:bg-emerald-100"
+                : "border-amber-300 hover:bg-amber-100"
+            )}
+          >
+            {authToggling
+              ? "Updating..."
+              : authRequired
+                ? "Disable Login"
+                : "Enable Login"}
+          </Button>
+        </div>
+      )}
 
       {/* Platform Stats — all-time */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

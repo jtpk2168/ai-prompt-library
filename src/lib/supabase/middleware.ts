@@ -31,29 +31,39 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  // Public paths that don't require authentication
-  const isPublicPath =
-    path === "/login" ||
-    path === "/admin" ||
-    path.startsWith("/api/v1/auth");
+  // Check if auth is required from site_settings table
+  const { data: authSetting } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "auth_required")
+    .single();
+  const authRequired = authSetting?.value !== "false";
 
-  // Require login for all pages except login and admin login
-  if (!user && !isPublicPath) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+  if (authRequired) {
+    // Public paths that don't require authentication
+    const isPublicPath =
+      path === "/login" ||
+      path === "/admin" ||
+      path.startsWith("/api/v1/auth");
 
-  // Force password reset for users with temporary passwords
-  if (user?.user_metadata?.must_reset_password === true) {
-    const isAllowed =
-      path === "/reset-password" ||
-      path.startsWith("/api/v1/auth") ||
-      path.startsWith("/admin");
-    if (!isAllowed) {
+    // Require login for all pages except login and admin login
+    if (!user && !isPublicPath) {
       const url = request.nextUrl.clone();
-      url.pathname = "/reset-password";
+      url.pathname = "/login";
       return NextResponse.redirect(url);
+    }
+
+    // Force password reset for users with temporary passwords
+    if (user?.user_metadata?.must_reset_password === true) {
+      const isAllowed =
+        path === "/reset-password" ||
+        path.startsWith("/api/v1/auth") ||
+        path.startsWith("/admin");
+      if (!isAllowed) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/reset-password";
+        return NextResponse.redirect(url);
+      }
     }
   }
 
