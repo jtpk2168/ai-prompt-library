@@ -22,6 +22,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MoreHorizontal, Plus, Eye, Edit, Trash2, ToggleLeft, Search } from "lucide-react";
 import { toast } from "sonner";
+import { FilterPills } from "@/components/admin-filters";
 import type { PromptWithCategory, Category } from "@/types/database";
 
 interface Props {
@@ -29,17 +30,27 @@ interface Props {
   categories: Category[];
 }
 
-export function AdminPromptList({ prompts }: Props) {
+export function AdminPromptList({ prompts, categories }: Props) {
   const router = useRouter();
   const [filter, setFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   const query = filter.toLowerCase();
-  const filtered = prompts.filter(
-    (p) =>
+  const filtered = prompts.filter((p) => {
+    const matchesSearch =
       p.title_en.toLowerCase().includes(query) ||
       p.title_zh?.toLowerCase().includes(query) ||
-      p.slug.includes(query)
-  );
+      p.slug.includes(query);
+    const matchesStatus =
+      statusFilter === "all" || p.status === statusFilter;
+    const matchesCategory =
+      categoryFilter === "all" || p.category?.slug === categoryFilter;
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
+
+  const publishedCount = prompts.filter((p) => p.status === "published").length;
+  const draftCount = prompts.filter((p) => p.status === "draft").length;
 
   const handlePublish = async (id: string, currentStatus: string) => {
     const action = currentStatus === "published" ? "unpublished" : "published";
@@ -65,15 +76,38 @@ export function AdminPromptList({ prompts }: Props) {
         </Link>
       </div>
 
-      <div className="relative mb-4 max-w-xs">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search prompts..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="pl-9"
-        />
+      <div className="mb-4 space-y-3">
+        <div className="relative max-w-xs">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search prompts..."
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <div className="flex flex-wrap gap-4">
+          <FilterPills
+            label="Status"
+            value={statusFilter}
+            onChange={setStatusFilter}
+            options={[
+              { value: "all", label: "All", count: prompts.length },
+              { value: "published", label: "Published", count: publishedCount },
+              { value: "draft", label: "Draft", count: draftCount },
+            ]}
+          />
+          <FilterPills
+            label="Category"
+            value={categoryFilter}
+            onChange={setCategoryFilter}
+            options={[
+              { value: "all", label: "All" },
+              ...categories.map((c) => ({ value: c.slug, label: c.name_en })),
+            ]}
+          />
+        </div>
       </div>
 
       <div className="rounded-xl border bg-white">

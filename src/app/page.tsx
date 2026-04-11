@@ -238,16 +238,6 @@ export default async function HomePage() {
               </ul>
             </div>
 
-            {/* Tools */}
-            <div>
-              <h4 className="mb-3 text-sm font-semibold text-white">Tools We Use</h4>
-              <ul className="space-y-2 text-sm">
-                <li>Cursor</li>
-                <li>Claude</li>
-                <li>v0</li>
-              </ul>
-            </div>
-
             {/* Support */}
             <div>
               <h4 className="mb-3 text-sm font-semibold text-white">Support</h4>
@@ -262,7 +252,8 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-10 border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
-            © {new Date().getFullYear()} Vibe Coding Learning Hub. All rights reserved.
+            <p>Built with Vibe Coding</p>
+            <p className="mt-1">© {new Date().getFullYear()} Vibe Coding Learning Hub</p>
           </div>
         </div>
       </footer>

@@ -35,6 +35,7 @@ import {
   Copy,
   Check,
 } from "lucide-react";
+import { FilterPills } from "@/components/admin-filters";
 import { toast } from "sonner";
 
 interface AuthUser {
@@ -50,6 +51,7 @@ interface AuthUser {
 export function AdminUserList({ users }: { users: AuthUser[] }) {
   const router = useRouter();
   const [filter, setFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [addOpen, setAddOpen] = useState(false);
   const [resultOpen, setResultOpen] = useState(false);
   const [resultPassword, setResultPassword] = useState("");
@@ -62,11 +64,19 @@ export function AdminUserList({ users }: { users: AuthUser[] }) {
   const [email, setEmail] = useState("");
 
   const query = filter.toLowerCase();
-  const filtered = users.filter(
-    (u) =>
+  const filtered = users.filter((u) => {
+    const matchesSearch =
       (u.user_metadata?.full_name || "").toLowerCase().includes(query) ||
-      (u.email || "").toLowerCase().includes(query)
-  );
+      (u.email || "").toLowerCase().includes(query);
+    const matchesStatus =
+      statusFilter === "all" ||
+      (statusFilter === "needs_reset" && u.user_metadata?.must_reset_password) ||
+      (statusFilter === "active" && !u.user_metadata?.must_reset_password);
+    return matchesSearch && matchesStatus;
+  });
+
+  const activeCount = users.filter((u) => !u.user_metadata?.must_reset_password).length;
+  const resetCount = users.filter((u) => u.user_metadata?.must_reset_password).length;
 
   const handleAddUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,14 +175,26 @@ export function AdminUserList({ users }: { users: AuthUser[] }) {
         </Button>
       </div>
 
-      <div className="relative mb-4 max-w-xs">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search users..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="pl-9"
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative max-w-xs flex-1">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search users..."
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <FilterPills
+          label="Status"
+          value={statusFilter}
+          onChange={setStatusFilter}
+          options={[
+            { value: "all", label: "All", count: users.length },
+            { value: "active", label: "Active", count: activeCount },
+            { value: "needs_reset", label: "Needs Reset", count: resetCount },
+          ]}
         />
       </div>
 
@@ -229,19 +251,19 @@ export function AdminUserList({ users }: { users: AuthUser[] }) {
                         <MoreHorizontal className="h-4 w-4" />
                         <span className="sr-only">Actions</span>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuContent align="end" className="w-48">
                         <DropdownMenuItem
                           onClick={() => handleResend(user.id)}
                         >
                           <Mail className="mr-2 h-4 w-4" />
-                          Resend Welcome Email
+                          Resend Password
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => handleDelete(user.id)}
                           className="text-destructive"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
-                          Delete User
+                          Delete
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

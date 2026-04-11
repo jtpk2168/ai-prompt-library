@@ -27,6 +27,7 @@ import {
   Clock,
   Archive,
 } from "lucide-react";
+import { FilterPills } from "@/components/admin-filters";
 import { toast } from "sonner";
 
 interface FeedbackItem {
@@ -57,15 +58,21 @@ const CATEGORY_LABELS: Record<string, string> = {
 export function AdminFeedbackList({ feedback }: { feedback: FeedbackItem[] }) {
   const router = useRouter();
   const [filter, setFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   const query = filter.toLowerCase();
-  const filtered = feedback.filter(
-    (f) =>
+  const filtered = feedback.filter((f) => {
+    const matchesSearch =
       f.user_name.toLowerCase().includes(query) ||
       f.user_email.toLowerCase().includes(query) ||
-      f.message.toLowerCase().includes(query) ||
-      f.category.toLowerCase().includes(query)
-  );
+      f.message.toLowerCase().includes(query);
+    const matchesStatus =
+      statusFilter === "all" || f.status === statusFilter;
+    const matchesCategory =
+      categoryFilter === "all" || f.category === categoryFilter;
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
 
   const handleStatus = async (id: string, status: string) => {
     const res = await fetch(`/api/v1/admin/feedback/${id}`, {
@@ -114,15 +121,43 @@ export function AdminFeedbackList({ feedback }: { feedback: FeedbackItem[] }) {
         </div>
       </div>
 
-      <div className="relative mb-4 max-w-xs">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search feedback..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="pl-9"
-        />
+      <div className="mb-4 space-y-3">
+        <div className="relative max-w-xs">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search feedback..."
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <div className="flex flex-wrap gap-4">
+          <FilterPills
+            label="Status"
+            value={statusFilter}
+            onChange={setStatusFilter}
+            options={[
+              { value: "all", label: "All", count: feedback.length },
+              { value: "new", label: "New", count: feedback.filter((f) => f.status === "new").length },
+              { value: "reviewed", label: "Reviewed", count: feedback.filter((f) => f.status === "reviewed").length },
+              { value: "resolved", label: "Resolved", count: feedback.filter((f) => f.status === "resolved").length },
+              { value: "archived", label: "Archived", count: feedback.filter((f) => f.status === "archived").length },
+            ]}
+          />
+          <FilterPills
+            label="Category"
+            value={categoryFilter}
+            onChange={setCategoryFilter}
+            options={[
+              { value: "all", label: "All" },
+              { value: "general", label: "General" },
+              { value: "bug", label: "Bug" },
+              { value: "feature", label: "Feature" },
+              { value: "content", label: "Content" },
+            ]}
+          />
+        </div>
       </div>
 
       <div className="rounded-xl border bg-white">

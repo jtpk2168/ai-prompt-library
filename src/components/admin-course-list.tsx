@@ -28,6 +28,7 @@ import {
   ToggleLeft,
   Search,
 } from "lucide-react";
+import { FilterPills } from "@/components/admin-filters";
 import { toast } from "sonner";
 import {
   MOCK_COURSES,
@@ -37,14 +38,18 @@ import {
 
 export function AdminCourseList() {
   const [filter, setFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const query = filter.toLowerCase();
-  const filtered = MOCK_COURSES.filter(
-    (c) =>
+  const filtered = MOCK_COURSES.filter((c) => {
+    const matchesSearch =
       c.title_en.toLowerCase().includes(query) ||
       c.title_zh.toLowerCase().includes(query) ||
-      c.slug.includes(query)
-  );
+      c.slug.includes(query);
+    // Mock courses are all published for now
+    const matchesStatus = statusFilter === "all" || statusFilter === "published";
+    return matchesSearch && matchesStatus;
+  });
 
   const handlePublish = (slug: string) => {
     toast.success(`Course "${slug}" status toggled (mock)`);
@@ -65,14 +70,26 @@ export function AdminCourseList() {
         </Link>
       </div>
 
-      <div className="relative mb-4 max-w-xs">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Search courses..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="pl-9"
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative max-w-xs flex-1">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search courses..."
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+        <FilterPills
+          label="Status"
+          value={statusFilter}
+          onChange={setStatusFilter}
+          options={[
+            { value: "all", label: "All", count: MOCK_COURSES.length },
+            { value: "published", label: "Published", count: MOCK_COURSES.length },
+            { value: "draft", label: "Draft", count: 0 },
+          ]}
         />
       </div>
 

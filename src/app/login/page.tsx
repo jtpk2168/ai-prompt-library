@@ -87,6 +87,10 @@ export default function LoginPage() {
               {loading ? "Logging in..." : "Log In"}
             </Button>
           </form>
+
+          <div className="mt-5 rounded-lg bg-slate-50 p-3 text-center text-[11px] leading-relaxed text-slate-400">
+            This account is for your personal use only. Sharing your login credentials with others is strictly prohibited. Violations will result in access being revoked.
+          </div>
         </CardContent>
       </Card>
     </div>

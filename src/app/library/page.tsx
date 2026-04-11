@@ -1,8 +1,25 @@
 import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 import { Header } from "@/components/header";
 import { PromptCard } from "@/components/prompt-card";
 import { LibraryFilters } from "@/components/library-filters";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { PromptWithCategory, Category, Tag, Industry } from "@/types/database";
+
+const PAGE_SIZE = 12;
+
+function buildPageUrl(
+  filters: Record<string, string | undefined>,
+  page: number
+): string {
+  const params = new URLSearchParams();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) params.set(key, value);
+  });
+  if (page > 1) params.set("page", String(page));
+  const qs = params.toString();
+  return `/library${qs ? `?${qs}` : ""}`;
+}
 
 export const metadata = {
   title: "Template Library",
@@ -11,11 +28,12 @@ export const metadata = {
 export default async function LibraryPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string; sort?: string; tag?: string; industry?: string }>;
+  searchParams: Promise<{ category?: string; q?: string; sort?: string; tag?: string; industry?: string; page?: string }>;
 }) {
   const supabase = await createClient();
 
-  const { category, q, sort = "popular", tag, industry } = await searchParams;
+  const { category, q, sort = "popular", tag, industry, page: pageParam } = await searchParams;
+  const currentPage = Math.max(1, parseInt(pageParam || "1", 10));
 
   // Fetch categories, tags, and industries for filters
   const [categoriesRes, tagsRes, industriesRes] = await Promise.all([
@@ -137,9 +155,12 @@ export default async function LibraryPage({
       query = query.order("times_copied", { ascending: false });
   }
 
-  query = query.limit(50);
+  const from = (currentPage - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+  query = query.range(from, to);
 
   const { data: prompts, count } = await query;
+  const totalPages = Math.ceil((count || 0) / PAGE_SIZE);
 
   return (
     <>
@@ -184,11 +205,76 @@ export default async function LibraryPage({
                 No matching templates found
               </div>
             ) : (
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {(prompts as PromptWithCategory[]).map((prompt) => (
-                  <PromptCard key={prompt.id} prompt={prompt} />
-                ))}
-              </div>
+              <>
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {(prompts as PromptWithCategory[]).map((prompt) => (
+                    <PromptCard key={prompt.id} prompt={prompt} />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="mt-8 flex items-center justify-center gap-2">
+                    {currentPage > 1 ? (
+                      <Link
+                        href={buildPageUrl({ category, q, sort, tag, industry }, currentPage - 1)}
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border text-sm transition-colors hover:bg-secondary"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Link>
+                    ) : (
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg border text-sm text-muted-foreground/30">
+                        <ChevronLeft className="h-4 w-4" />
+                      </span>
+                    )}
+
+                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                      .filter((p) => {
+                        // Show first, last, and pages near current
+                        return p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1;
+                      })
+                      .reduce<(number | "ellipsis")[]>((acc, p, i, arr) => {
+                        if (i > 0 && p - (arr[i - 1] as number) > 1) {
+                          acc.push("ellipsis");
+                        }
+                        acc.push(p);
+                        return acc;
+                      }, [])
+                      .map((item, i) =>
+                        item === "ellipsis" ? (
+                          <span key={`e${i}`} className="px-1 text-sm text-muted-foreground">
+                            ...
+                          </span>
+                        ) : (
+                          <Link
+                            key={item}
+                            href={buildPageUrl({ category, q, sort, tag, industry }, item)}
+                            className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+                              item === currentPage
+                                ? "bg-slate-900 text-white"
+                                : "border hover:bg-secondary"
+                            }`}
+                          >
+                            {item}
+                          </Link>
+                        )
+                      )}
+
+                    {currentPage < totalPages ? (
+                      <Link
+                        href={buildPageUrl({ category, q, sort, tag, industry }, currentPage + 1)}
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border text-sm transition-colors hover:bg-secondary"
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Link>
+                    ) : (
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg border text-sm text-muted-foreground/30">
+                        <ChevronRight className="h-4 w-4" />
+                      </span>
+                    )}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
