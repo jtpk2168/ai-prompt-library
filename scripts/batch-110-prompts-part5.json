@@ -1,0 +1,192 @@
+[
+  {
+    "slug": "sales-analytics-dashboard",
+    "title_en": "Sales Analytics Dashboard Builder",
+    "title_zh": "销售数据分析仪表盘",
+    "subtitle": "Real-time sales dashboard with revenue, conversion, top products, and rep performance from your Supabase data",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "Dashboard 不要超过 6 个图。看太多图脑袋会乱，反而不知道要看什么。先看总营收，再看 top 5 产品，足够了。",
+    "prompt_body": "你是一位资深 BI 工程师与数据可视化专家。\n\n为 {company_name}（{business_model}）构建一个销售实时仪表盘。数据来自 {data_source}。\n\n## 技术栈\n- Next.js 16 + TypeScript（Server Components 直读 Supabase）\n- Tailwind 4 + shadcn/ui\n- 图表：recharts\n- 实时：Supabase Realtime（订单事件）\n- 缓存：unstable_cache 减少 DB 压力\n\n## Dashboard 布局（4 行 2 列）\n\n### 第 1 行：KPI 卡片（4 张）\n- **今日营收**：金额 + 与昨日对比箭头 + 当日目标进度\n- **本月营收**：金额 + 与目标对比 + 还差多少\n- **平均订单**：今日平均 vs 30 天平均\n- **订单数**：今日 + 与昨日对比\n\n### 第 2 行：趋势图\n- **营收趋势**：30 天日营收线图 + 7 天 / 30 天移动平均\n- **订单 vs 营收**：双 Y 轴柱+线图\n\n### 第 3 行：分布与排名\n- **Top 10 产品**：水平柱状图（按营收）\n- **Top 5 销售员**：水平柱状图\n\n### 第 4 行：细分\n- **销售渠道占比**：饼图（线下 / 网店 / WhatsApp / 第三方平台）\n- **客户类型**：新客 vs 回头客 比例\n\n## 交互\n- 时间筛选器：今日 / 本周 / 本月 / 本季度 / 自定义\n- 部门 / 分店筛选\n- 一键导出 PNG / PDF（适合 WhatsApp 发给老板）\n- 点击任何图表跳转到详情页\n- 自动刷新：每 60 秒\n\n## 实时通知\n- 大单告警：> RM {big_order_threshold} 的订单立即弹窗 + 声音\n- 异常告警：当日营收落后目标 50% → 12pm 通知销售经理\n\n## 数据源对接\n- 从 Supabase orders、order_items、products、customers 表汇总\n- 使用 materialized view 加速大量数据查询\n- 时区：Asia/Kuala_Lumpur\n\n## 移动端\n- 手机版：KPI 卡 → 关键图 → 详情\n- 老板版：极简，只显示总营收 + 与目标的差距\n\n请生成完整代码、Supabase 视图、5 个示例数据查询。",
+    "prompt_body_en": "Build a real-time sales dashboard for {company_name} ({business_model}) from {data_source}.\n\nStack: Next.js 16 + TS Server Components reading Supabase, Tailwind + shadcn, recharts, Realtime, unstable_cache.\n\nLayout: row 1 four KPI cards (Today Revenue with day comparison, Month Revenue vs target, AOV today vs 30-day, Orders count); row 2 trends (30-day line + 7/30 day moving averages, dual-axis orders + revenue); row 3 rankings (top 10 products horizontal bars, top 5 reps); row 4 segments (channel pie, new vs returning).\n\nInteractions: time filter (today/week/month/quarter/custom), branch filter, export PNG/PDF for WhatsApp, drill-down on click, 60s auto-refresh.\n\nAlerts: big order > {big_order_threshold} popup + sound, behind-target by noon → manager alert.\n\nData: aggregate from orders, order_items, products, customers via materialized views, Asia/Kuala_Lumpur timezone.\n\nMobile: KPI → key chart → drill-down. Boss view: total revenue vs target only.\n\nGenerate full code, Supabase views, 5 sample queries.",
+    "preview_prompt": "Show a sales dashboard for 'Hong Tat Trading'. Top row 4 KPI cards: Today RM 28,450 (+12% green), This Month RM 487,200 (76% of target), AOV RM 245, Orders 116. Below shows a 30-day revenue line chart with moving average overlay, top 10 products horizontal bar chart on the left, top 5 sales reps on the right with avatars, channel pie at the bottom. Top has time filter pills and 'Export PDF' button.",
+    "tags": ["data", "dashboard", "sales", "supabase-realtime", "supabase"],
+    "industries": ["general", "retail", "ecommerce"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达贸易 Sdn Bhd", "default_value_en": "Hong Tat Trading Sdn Bhd", "input_type": "text"},
+      {"key": "business_model", "label_en": "Business Model", "label_zh": "业务模式", "default_value": "B2B 批发 + 网店零售", "default_value_en": "B2B wholesale + online retail", "input_type": "text"},
+      {"key": "data_source", "label_en": "Data Source", "label_zh": "数据源", "default_value": "现有 Supabase 订单系统", "default_value_en": "Existing Supabase orders system", "input_type": "text"},
+      {"key": "big_order_threshold", "label_en": "Big Order Threshold", "label_zh": "大单门槛", "default_value": "5000", "default_value_en": "5000", "input_type": "number"}
+    ]
+  },
+  {
+    "slug": "customer-segmentation-tool",
+    "title_en": "Customer Segmentation Tool (RFM)",
+    "title_zh": "客户分群工具（RFM 模型）",
+    "subtitle": "Segment customers using RFM (Recency, Frequency, Monetary) analysis to identify VIPs, at-risk, and lapsed customers",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "VIP 客户值得花钱讨好。算出来 top 20% 客户贡献了 80% 营收的话，每月寄一份小礼物比打广告划算。",
+    "prompt_body": "你是一位资深客户数据分析师。\n\n为 {business_name}（{customer_count} 名客户，{order_history_months} 个月订单数据）构建一个 RFM 客户分群工具。\n\n## RFM 模型\n- **Recency**：最近一次购买距今多少天\n- **Frequency**：总购买次数\n- **Monetary**：总消费金额\n\n每个维度按 5 分位分成 1-5 分（5 = 最好），合并成 RFM 评分。\n\n## 8 大客户群\n1. **冠军 Champions** (R5 F5 M5)：最近购买、频次高、消费多 → VIP\n2. **忠实 Loyal** (R高 F高)：常客\n3. **潜力 Potential** (R5 F1-2 M高)：新客但消费多\n4. **新用户 New** (R5 F1)：刚买过的第一次客户\n5. **有希望 Promising** (R5 F2-3)：未来可能成长\n6. **需要关注 Need Attention** (R3 F3 M3)：中位客户\n7. **沉睡 At Risk** (R低 F高 M高)：以前是好客户但消失了\n8. **流失 Lost** (R1 F1 M低)：长时间不回\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（customers, orders, customer_segments）\n- 计算：Postgres SQL（NTILE 函数计算分位）\n- 图表：recharts\n- 导出：CSV / WhatsApp Marketing list\n\n## 页面\n\n### 1. /segments 客户群仪表盘\n- 8 个 segment 卡片：客户数 + 占比 + 平均订单\n- 散点图：F vs M（点的大小 = R 分数）\n- 表格：每个 segment 的特征与建议动作\n\n### 2. /segments/[name] 群组详情\n- 该群组的所有客户列表\n- 按 monetary 排序\n- 一键导出 CSV\n- 一键生成 WhatsApp blast list（含个性化字段）\n- 推荐动作：\n  - 冠军：寄礼物 + VIP 邀请\n  - 忠实：感谢卡 + 回购优惠\n  - 沉睡：win-back 优惠\n  - 流失：低价 reactivation 活动\n\n### 3. /campaigns 营销活动追踪\n- 选择 segment\n- 设计活动\n- 追踪 ROI\n\n### 4. /admin/calculate 重新计算\n- 按钮：重新计算所有 RFM 分数\n- 设定计算频率（每周 / 每月）\n- 显示上次计算时间\n\n## SQL 计算逻辑\n```sql\nWITH rfm AS (\n  SELECT\n    customer_id,\n    DATE_PART('day', NOW() - MAX(order_date)) AS recency_days,\n    COUNT(*) AS frequency,\n    SUM(total) AS monetary\n  FROM orders\n  GROUP BY customer_id\n),\nscored AS (\n  SELECT *,\n    NTILE(5) OVER (ORDER BY recency_days DESC) AS r,\n    NTILE(5) OVER (ORDER BY frequency) AS f,\n    NTILE(5) OVER (ORDER BY monetary) AS m\n  FROM rfm\n)\nSELECT * FROM scored;\n```\n\n## 业务逻辑\n- 自动每周计算 → 移动客户进入新 segment 时通知营销团队\n- 从冠军掉到沉睡 → 自动触发紧急 win-back 邮件\n\n请生成完整代码、Supabase 迁移、SQL 视图与 50 个示例客户数据。",
+    "prompt_body_en": "Build an RFM customer segmentation tool for {business_name} ({customer_count} customers, {order_history_months} months of order data).\n\nRFM: Recency (days since last order), Frequency (count), Monetary (total spend); each scored 1-5 by NTILE quintile, combined into 8 segments (Champions, Loyal, Potential, New, Promising, Needs Attention, At Risk, Lost).\n\nStack: Next.js 16 + TS, Supabase (customers, orders, customer_segments), Postgres NTILE, recharts, CSV/WhatsApp export.\n\nPages: /segments dashboard with 8 cards, F-vs-M scatter sized by R, action recommendations table; /segments/[name] customer list sorted by monetary, CSV/WhatsApp export, recommended actions per segment; /campaigns campaign tracking; /admin/calculate recalc button + frequency.\n\nSQL: NTILE(5) OVER ORDER BY recency_days DESC, frequency, monetary.\n\nLogic: weekly auto-recalc, segment-change alerts, Champion-to-At-Risk triggers urgent win-back.\n\nGenerate full code, migration, SQL view, 50 sample customers.",
+    "preview_prompt": "Show a customer segmentation dashboard with 8 segment cards in a 4x2 grid: Champions 234 customers (gold), Loyal 412, Potential 187, New 145, Promising 198, Needs Attention 267, At Risk 156 (red), Lost 89 (gray). Each card shows count, percentage, avg order value, and a 'View List' button. Below is a F-vs-M scatter plot with bubble sizes representing recency. Top right has 'Recalculate Segments' button.",
+    "tags": ["data", "rfm", "segmentation", "marketing", "supabase"],
+    "industries": ["retail", "ecommerce", "general"],
+    "variables": [
+      {"key": "business_name", "label_en": "Business Name", "label_zh": "公司名称", "default_value": "宏达零售 Sdn Bhd", "default_value_en": "Hong Tat Retail Sdn Bhd", "input_type": "text"},
+      {"key": "customer_count", "label_en": "Customer Count", "label_zh": "客户总数", "default_value": "约 1,800", "default_value_en": "~1,800", "input_type": "text"},
+      {"key": "order_history_months", "label_en": "Order History Months", "label_zh": "订单历史月数", "default_value": "24", "default_value_en": "24", "input_type": "number"}
+    ]
+  },
+  {
+    "slug": "inventory-forecasting-tool",
+    "title_en": "Inventory Forecasting Tool",
+    "title_zh": "库存预测工具",
+    "subtitle": "Predict next month's stock needs using historical sales, seasonality, and lead times to avoid stockouts",
+    "category": "data",
+    "difficulty": "hard",
+    "estimated_minutes": 90,
+    "boss_tip": "做预测不要追求 100% 准确。系统给出建议，老板凭经验加减 20%，比纯算法或纯人脑都好。",
+    "prompt_body": "你是一位资深供应链分析师，专门为中小企业做需求预测。\n\n为 {company_name}（{sku_count} 个 SKU，{warehouse_count} 个仓库）构建一个库存预测工具。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（products, sales_history, forecasts, purchase_orders）\n- 预测算法：移动平均 + 季节性调整（不上 ML，免维护）\n- 图表：recharts\n\n## 数据模型\n- `products`: id, sku, name, lead_time_days, supplier_id, current_stock, reorder_level, safety_stock_days\n- `sales_history`: product_id, date, quantity_sold\n- `forecasts`: id, product_id, period (year-month), forecast_qty, confidence_low, confidence_high, calculated_at\n- `purchase_orders`: id, product_id, qty, expected_arrival, status\n\n## 页面\n\n### 1. /forecast 预测仪表盘\n- 表格：每个 SKU\n  - 当前库存\n  - 30 天预测销量\n  - 距离断货还有几天\n  - 建议下单量\n  - 颜色：红（≤7 天断货）/ 黄（7-14 天）/ 绿（充足）\n- 排序：最紧急在前\n- 一键生成采购单\n\n### 2. /forecast/[sku] 详细预测\n- 12 个月历史销售线图\n- 与预测对比（虚线）\n- 季节性分析（哪几个月通常旺）\n- 趋势：上升 / 平稳 / 下降\n- 异常事件标注（如 Hari Raya 期间销量翻倍）\n- 调整工具：用户可手动 +/-% 修正预测\n\n### 3. /purchase-orders 采购单\n- 待采购清单（基于预测）\n- 多 SKU 合并到同一供应商\n- 一键生成 PO PDF 发邮件给供应商\n- 追踪到货状态\n\n### 4. /reports 报表\n- 预测准确率（实际 vs 预测）\n- 缺货损失估算（缺货天数 × 平均日销）\n- 滞销 SKU（连续 60 天 0 销量）\n- 资金占用：当前库存价值\n\n## 算法\n\n### 简单移动平均（基础）\n```\nforecast = avg(last_30_days_sales) × 30\n```\n\n### 加季节性调整\n```\nseasonal_factor = (avg_same_month_last_year / avg_yearly)\nforecast = base_forecast × seasonal_factor\n```\n\n### 安全库存\n```\nsafety_stock = forecast_daily × safety_stock_days\nreorder_point = lead_time × forecast_daily + safety_stock\n```\n\n### 建议下单量\n```\nsuggested_qty = max(\n  forecast_30_days + safety_stock - current_stock - on_order_qty,\n  min_order_qty\n)\n```\n\n## 业务逻辑\n- 每晚自动跑预测\n- 紧急告警：reorder_point 触发 → 通知采购员\n- 节庆调整：Hari Raya / 春节 / Deepavali 前 60 天自动 ×1.3 倍\n- 新品冷启动：< 30 天历史的 SKU 用同类平均值\n\n请生成完整代码、Supabase 迁移、SQL 视图、20 个 SKU 与 6 个月销售数据种子。",
+    "prompt_body_en": "Build an inventory forecasting tool for {company_name} ({sku_count} SKUs, {warehouse_count} warehouses).\n\nStack: Next.js 16 + TS, Supabase (products, sales_history, forecasts, purchase_orders), simple moving average + seasonal adjustment (no ML), recharts.\n\nPages: /forecast dashboard with SKU table (current stock, 30-day forecast, days to stockout, suggested order qty, red/yellow/green flags) sorted by urgency, generate PO button; /forecast/[sku] detail with 12-month history line, forecast overlay, seasonality analysis, trend, event annotations, manual ±% adjustment; /purchase-orders queue grouped by supplier, PDF + email; /reports forecast accuracy, stockout loss, dead stock (60 days zero sales), capital tied up.\n\nAlgorithms: SMA forecast = avg(30 days) × 30; seasonal = same-month-last-year / yearly avg; safety stock = daily × days; reorder point = lead time × daily + safety; suggested = forecast + safety - current - on-order, min order qty.\n\nLogic: nightly auto-forecast, reorder alerts, festive ×1.3 (Hari Raya, CNY, Deepavali), new SKU uses category average.\n\nGenerate full code, migration, SQL view, 20 SKUs + 6 months sales seed.",
+    "preview_prompt": "Show an inventory forecasting dashboard with a table of 12 SKUs sorted by urgency. Top 3 rows are red 'reorder now': SKU-001 'Nasi Lemak Sambal 500ml' current 24, forecast 180, days to stockout 4, suggested 220. Yellow rows show 7-14 day stockouts. Right side has a chart for the selected SKU showing 12-month sales history and forecast extending 30 days into the future with confidence band.",
+    "tags": ["data", "inventory", "forecasting", "supabase", "full-app"],
+    "industries": ["retail", "manufacturing", "ecommerce"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达批发 Sdn Bhd", "default_value_en": "Hong Tat Wholesale Sdn Bhd", "input_type": "text"},
+      {"key": "sku_count", "label_en": "SKU Count", "label_zh": "SKU 数量", "default_value": "约 280 个", "default_value_en": "~280", "input_type": "text"},
+      {"key": "warehouse_count", "label_en": "Warehouses", "label_zh": "仓库数", "default_value": "2", "default_value_en": "2", "input_type": "number"}
+    ]
+  },
+  {
+    "slug": "excel-data-cleaner",
+    "title_en": "Excel Data Cleaning & Formatting Tool",
+    "title_zh": "Excel 数据清洗与格式化工具",
+    "subtitle": "Upload messy CSV/Excel files and get clean, deduplicated, properly formatted data with one click",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 45,
+    "boss_tip": "数据清洗占数据分析 80% 的时间。把这件事自动化，能省下每周 5 个小时给你做真正赚钱的事情。",
+    "prompt_body": "你是一位资深数据工程师。\n\n构建一个 Web 端的 Excel / CSV 数据清洗工具，给非技术人员（如 HR、销售、财务）使用。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Excel 解析：xlsx 包\n- CSV 解析：papaparse\n- 客户端处理（不上传服务器，保护隐私）\n- shadcn/ui Table\n- 导出：xlsx / csv\n\n## 功能\n\n### 1. /upload 上传文件\n- 拖拽上传 .xlsx / .xls / .csv\n- 显示文件预览（前 10 行）\n- 选择要处理的 sheet（多 sheet 支持）\n- 自动检测：列类型（文本 / 数字 / 日期 / 邮箱 / 电话）\n\n### 2. /clean 清洗操作\n用户可勾选要进行的操作：\n\n#### 文本清洗\n- ✅ 去除前后空格\n- ✅ 转换大小写（首字母大写 / 全大写 / 全小写）\n- ✅ 移除多余空格（中间空格变 1 个）\n- ✅ 移除特殊字符\n- ✅ Unicode 标准化\n\n#### 数字清洗\n- ✅ 移除货币符号（RM、$、，）\n- ✅ 转换为数字\n- ✅ 圆数到指定小数位\n- ✅ 处理负数（用 () 表示）\n\n#### 日期清洗\n- ✅ 自动识别多种格式\n- ✅ 统一为 YYYY-MM-DD\n- ✅ 处理 Excel 日期序列号\n\n#### 邮箱清洗\n- ✅ 验证格式\n- ✅ 标记无效邮箱\n- ✅ 转小写\n\n#### 电话号码清洗\n- ✅ 标准化为马来西亚格式 +60 1X-XXXXXXXX\n- ✅ 移除多余空格、连字符\n- ✅ 自动添加国家代码\n\n#### 重复检测\n- ✅ 找出完全重复的行\n- ✅ 找出关键字段重复（如同邮箱、同电话）\n- ✅ 显示重复组\n- ✅ 选择保留最新 / 最旧 / 手动\n\n#### 缺失值处理\n- ✅ 找出空白\n- ✅ 用平均值 / 中位数 / 默认值填充\n- ✅ 删除整行\n\n### 3. /preview 预览结果\n- 并排对比：原始 vs 清洗后\n- 高亮变化的单元格\n- 统计：清洗了多少行 / 删除多少行 / 修正多少错误\n\n### 4. /export 导出\n- 选择格式：xlsx / csv\n- 包含 / 不包含表头\n- 重命名列\n\n## 高级功能\n- 保存清洗模板（下次同类文件一键应用）\n- 批量处理多文件\n- 历史记录（最近 10 次操作）\n\n请生成完整代码与 5 个示例脏数据 CSV 进行测试。",
+    "prompt_body_en": "Build a web-based Excel/CSV data cleaning tool for non-technical users.\n\nStack: Next.js 16 + TS, xlsx package, papaparse, client-side processing (privacy), shadcn Table, xlsx/csv export.\n\nPages: /upload drag-drop with sheet selector and column type auto-detection; /clean checkbox operations: text (trim, case conversion, extra spaces, special chars, unicode), numbers (currency strip, decimals, negatives), dates (multi-format detection → YYYY-MM-DD, Excel serials), emails (validation, lowercase), phones (Malaysia +60 standardization), duplicates (full row, key fields, keep latest/oldest/manual), missing values (mean/median/default fill or delete row); /preview side-by-side comparison with highlighted changes and stats; /export xlsx/csv with header options.\n\nAdvanced: save cleaning templates, batch multi-file, last 10 operations history.\n\nGenerate full code with 5 sample dirty CSV files for testing.",
+    "preview_prompt": "Show a data cleaning interface with a 3-pane layout. Left: uploaded file 'customers_messy.csv' with column type detection. Center: a long checklist of cleaning operations grouped by section (Text, Numbers, Dates, Emails, Phones, Duplicates) with visual icons. Right: a preview table showing original vs cleaned side-by-side with green highlights on changed cells. Top right has 'Apply All' button in yellow and 'Save Template' button.",
+    "tags": ["data", "excel", "cleaning", "automation", "utility"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "use_case", "label_en": "Use Case", "label_zh": "使用场景", "default_value": "清理客户名单与销售数据", "default_value_en": "Customer list and sales data cleanup", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "monthly-business-report-generator",
+    "title_en": "Monthly Business Report Generator",
+    "title_zh": "月度业务报告生成器",
+    "subtitle": "Auto-generate a polished monthly business report PDF with KPIs, charts, narrative, and action items for stakeholders",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "每个月 1 号自动生成上月报告，发给所有股东。这件事比开会更能让股东放心。",
+    "prompt_body": "你是一位资深 CFO，擅长把数字变成故事。\n\n为 {company_name} 构建一个月度业务报告自动生成系统。报告将发送给 {recipients}。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（数据来源）\n- 图表：recharts → 转 PNG\n- PDF：react-pdf 或 puppeteer 服务端渲染\n- 邮件：Resend\n- AI 注解：可选 Claude API 自动撰写 narrative\n\n## 报告结构（10 页 PDF）\n\n### 第 1 页：封面\n- 公司 logo\n- \"{Month} {Year} 业务月报\"\n- 关键日期：报告期、生成日期\n- CEO 致辞（自动生成或手动撰写）\n\n### 第 2 页：执行摘要\n- 3 个关键 takeaways（自动生成）\n- 5 个关键 KPI 表格（vs 上月 vs 预算）\n- 总体红绿灯（绿 = 达标 / 黄 = 警告 / 红 = 落后）\n\n### 第 3 页：营收分析\n- 月度营收柱状图（近 12 个月）\n- 与去年同期对比\n- 各部门 / 产品线营收占比\n- 月度增长率\n\n### 第 4 页：销售管道\n- 当前管道总额\n- 各阶段 deal 数与金额\n- top 5 大单\n- 预计下月成交\n\n### 第 5 页：客户与营销\n- 新增客户数\n- 流失客户数\n- 客户满意度 NPS\n- 营销活动 ROI\n\n### 第 6 页：运营效率\n- 订单履行时间\n- 退货率\n- 库存周转\n- 客服响应时间\n\n### 第 7 页：财务健康\n- 现金流\n- 应收账款账龄\n- 利润率\n- 关键支出\n\n### 第 8 页：人力资源\n- 员工总数\n- 招聘进度\n- 流失率\n- 培训完成率\n\n### 第 9 页：风险与挑战\n- 本月遇到的问题\n- 下月预期挑战\n- 缓解方案\n\n### 第 10 页：行动项\n- 老板需要决策的事\n- 各部门 owner 与 deadline\n- 上月行动项 follow up\n\n## 页面\n\n### 1. /admin/reports 报告管理\n- 历史报告列表\n- 一键生成本月报告\n- 编辑模板（哪些章节、什么 KPI）\n\n### 2. /admin/reports/[id] 报告预览\n- 看完整 PDF\n- 编辑 narrative（AI 生成的部分可手动修改）\n- 发送给收件人\n\n### 3. /admin/schedule 自动化\n- 每月 1 号 09:00 自动生成上月报告\n- 自动发送给收件人列表\n- 失败重试\n\n## 业务逻辑\n- KPI 计算：从 Supabase 表汇总\n- AI narrative：根据数据变化自动写 \"为什么变化\" 段落\n- 红绿灯：与目标对比 ≥100% 绿，80-100% 黄，<80% 红\n- 自动签字：CEO 数字签名嵌入 PDF\n\n请生成完整代码、Supabase 视图、PDF 模板（HTML + CSS for puppeteer）、3 个示例月份数据。",
+    "prompt_body_en": "Build a monthly business report generator for {company_name} sending to {recipients}.\n\nStack: Next.js 16 + TS, Supabase data, recharts → PNG, react-pdf or puppeteer SSR, Resend, optional Claude API narrative.\n\n10-page PDF structure: 1) Cover (logo, period, CEO message); 2) Exec Summary (3 takeaways, 5 KPIs vs last month vs budget, traffic light); 3) Revenue (12-month bar, YoY, mix, growth rate); 4) Sales Pipeline (total, by stage, top 5 deals, next month forecast); 5) Customer & Marketing (new, churn, NPS, campaign ROI); 6) Operations (fulfillment time, returns, inventory turn, support time); 7) Financial Health (cash flow, AR aging, margin, key expenses); 8) HR (headcount, hiring, attrition, training); 9) Risks & Challenges; 10) Action Items.\n\nPages: /admin/reports list and one-click generate; /admin/reports/[id] preview with editable narrative and send button; /admin/schedule monthly 1st 09:00 auto-generation with retry.\n\nLogic: KPIs from Supabase aggregation, AI narrative for variance commentary, traffic light at 100/80/below, embedded CEO signature.\n\nGenerate full code, SQL views, HTML/CSS PDF template, 3 sample months data.",
+    "preview_prompt": "Show a 2-page spread of a monthly business report PDF for 'Hong Tat Sdn Bhd - January 2026'. Left page is the cover with company logo, large title, and a CEO message. Right page is the executive summary with a traffic light grid of 5 KPIs and 3 bullet point takeaways. Use a clean professional layout with the brand yellow header bar.",
+    "tags": ["data", "reporting", "pdf", "automation", "dashboard"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达企业 Sdn Bhd", "default_value_en": "Hong Tat Enterprise Sdn Bhd", "input_type": "text"},
+      {"key": "recipients", "label_en": "Recipients", "label_zh": "收件人", "default_value": "5 位股东 + CEO + CFO", "default_value_en": "5 shareholders + CEO + CFO", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "churn-analysis-dashboard",
+    "title_en": "Customer Churn Analysis Dashboard",
+    "title_zh": "客户流失分析仪表盘",
+    "subtitle": "Identify which customers are about to churn, why they're leaving, and which interventions actually save them",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "留住一个老客户的成本是获取新客户的 1/5。看流失分析比看销售数字重要。",
+    "prompt_body": "你是一位资深客户成功分析师。\n\n为 {service_name}（订阅模式 SaaS / 会员制业务）构建一个客户流失分析仪表盘。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（customers, subscriptions, events, churn_reasons）\n- 图表：recharts\n\n## 数据模型\n- `customers`: id, signed_up_at, churned_at, plan, mrr, last_active_at\n- `subscriptions`: id, customer_id, status (active/cancelled/expired), start_date, end_date, cancelled_at, cancellation_reason\n- `events`: id, customer_id, event_type (login/feature_use/support_ticket/upgrade/downgrade), occurred_at\n- `churn_reasons`: enum (price/missing_features/poor_support/competitor/no_use/other)\n\n## 页面\n\n### 1. /churn 仪表盘\n#### 顶部 KPI\n- 当月流失率 (Churn Rate)\n- 净流失率（含降级）\n- 流失金额 (MRR Lost)\n- 月度趋势\n\n#### 中部图表\n- 月度流失率线图（24 个月）\n- 流失客户类型分布（按 plan / 入会时间 / 年龄段）\n- 流失原因饼图\n- 留存曲线（按 cohort）\n\n### 2. /at-risk 高风险客户\n基于以下信号识别即将流失的客户：\n- 30 天未登录\n- 使用频率明显下降（与历史平均比 -50%）\n- 支持工单 ≥3 次\n- 降级历史\n- 自动评分 0-100（越高越危险）\n\n表格列：客户名 + 风险分数 + 主要风险信号 + 建议动作\n\n### 3. /interventions 干预追踪\n- 已对哪些 at-risk 客户做了干预\n- 干预类型：邮件 / 电话 / 优惠 / 高管接触\n- 干预后是否留存（成功率）\n- 哪种干预最有效\n\n### 4. /cohort 留存曲线\n- 按签约月份分群\n- 显示每个 cohort 的 1月、3月、6月、12月留存率\n- Heatmap 形式\n\n### 5. /reasons 流失原因深度分析\n- 退订时强制选择原因\n- 文本分析退订留言\n- 按 segment 看哪些原因最常见\n- 对应可改进的产品 / 服务\n\n## 业务逻辑\n- 自动每天计算 at-risk 分数\n- 高风险客户（≥70 分）自动通知 CSM\n- A/B 测试：随机分配干预 vs 不干预，对比留存率\n- 流失预警：流失率连续 2 个月上升 → 通知管理层\n\n## 算法（简单可解释）\n```\nrisk_score = \n  (days_since_login × 1.5) +\n  (support_tickets_30d × 10) +\n  (negative_feature_use_change × 20) +\n  (downgrade_count × 30)\n```\n（封顶 100）\n\n请生成完整代码、Supabase 迁移、6 个月模拟数据。",
+    "prompt_body_en": "Build a customer churn analysis dashboard for {service_name} (SaaS/subscription business).\n\nStack: Next.js 16 + TS, Supabase (customers, subscriptions, events, churn_reasons), recharts.\n\nPages: /churn dashboard with monthly churn rate, net churn (incl downgrades), MRR lost, trend; charts (24-month churn line, churned customer mix by plan/tenure, reason pie, cohort retention curve); /at-risk customer list scored 0-100 by signals (30 days no login, usage -50%, ≥3 tickets, downgrade history) with risk drivers and suggested actions; /interventions tracking with type (email/call/discount/exec touch) and effectiveness; /cohort heatmap by signup month showing 1/3/6/12 month retention; /reasons exit reason analysis with text analytics.\n\nLogic: daily risk score recalc, ≥70 alerts CSM, A/B test interventions, 2-month rising churn alerts management. Score = days_since_login × 1.5 + tickets_30d × 10 + usage_drop × 20 + downgrades × 30, capped 100.\n\nGenerate full code, migration, 6 months simulated data.",
+    "preview_prompt": "Show a churn dashboard. Top KPIs: Monthly Churn 4.2% (red), Net Churn 6.1%, MRR Lost RM 18,400, vs Last Month +0.8% (red). Below shows a 24-month churn rate line chart, a cohort retention heatmap (rows = signup months, columns = month 1-12), and a reasons pie (Price 35%, Missing Features 25%, Poor Support 20%, Competitor 12%, No Use 8%). Right sidebar lists 8 at-risk customers with risk score badges.",
+    "tags": ["data", "churn", "saas", "dashboard", "supabase"],
+    "industries": ["technology", "services"],
+    "variables": [
+      {"key": "service_name", "label_en": "Service Name", "label_zh": "服务名称", "default_value": "智能 ERP SaaS", "default_value_en": "BrightERP SaaS", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "financial-kpi-dashboard",
+    "title_en": "Financial KPI Dashboard",
+    "title_zh": "财务 KPI 仪表盘",
+    "subtitle": "Track gross margin, runway, burn rate, AR days, cash position, and other CFO-level financial KPIs",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "财务老板每天看的就 5 个数：现金、应收、应付、本月收支、剩余 runway。系统先做这 5 个，足够老板做决策。",
+    "prompt_body": "你是一位资深 CFO 与财务数据专家。\n\n为 {company_name}（{business_stage}）构建一个 CFO 级别的财务 KPI 仪表盘。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（accounts, transactions, invoices, payroll）\n- 图表：recharts\n- 实时：每日同步\n\n## KPI 定义与公式\n\n### 1. 现金类\n- **当前现金余额**：所有银行账户合计\n- **现金流入（本月）**：入账总额\n- **现金流出（本月）**：出账总额\n- **净现金流**：流入 - 流出\n- **Runway（生存月数）**：当前现金 / 月均烧钱\n\n### 2. 营收类\n- **月度营收 (MRR/Revenue)**\n- **营收增长率（MoM）**\n- **客户单价 (ARPU)**\n- **新客 vs 老客营收占比**\n\n### 3. 利润类\n- **毛利润 (Gross Profit)**：营收 - 直接成本\n- **毛利率 (GP Margin %)**\n- **EBITDA**\n- **净利润率**\n\n### 4. 应收应付\n- **应收账款余额**\n- **DSO (Days Sales Outstanding)**：(AR / Revenue) × 30\n- **应付账款余额**\n- **DPO (Days Payable Outstanding)**\n\n### 5. 库存（如适用）\n- **库存价值**\n- **库存周转率**\n- **库存天数**\n\n### 6. 团队成本\n- **薪资总成本 (本月)**\n- **人均收入贡献**\n\n## 仪表盘布局\n\n### 第 1 行：现金健康\n- 大数字：当前现金 + Runway 月数\n- 现金流入流出柱状图（近 6 个月）\n- 每月净流量\n\n### 第 2 行：营收与毛利\n- 营收线图\n- 毛利率趋势\n- 与目标对比\n\n### 第 3 行：应收账款\n- 总应收\n- DSO 趋势\n- 账龄分布饼图\n\n### 第 4 行：利润分析\n- P&L 简化图（瀑布图）\n- 各成本类别占比\n\n## 自动告警\n- Runway < 6 个月 → 红色横幅\n- DSO > 60 天 → 黄色提醒\n- 毛利率连续 2 个月下降 → 通知 CEO\n- 现金 < 关键阈值 → 紧急通知所有股东\n\n## 数据源\n- 从 Supabase financial 表汇总\n- 支持 CSV 导入（来自 SQL Account 等会计软件）\n- 自动同步 Stripe / Billplz 收款数据\n\n请生成完整代码、SQL 视图、CSV 导入功能、3 个月示例数据。",
+    "prompt_body_en": "Build a CFO-level financial KPI dashboard for {company_name} ({business_stage}).\n\nStack: Next.js 16 + TS, Supabase (accounts, transactions, invoices, payroll), recharts, daily sync.\n\nKPIs: Cash (current balance, inflow, outflow, net flow, runway = cash / monthly burn), Revenue (MRR, MoM growth, ARPU, new vs returning mix), Profit (Gross, GP%, EBITDA, NP%), Receivables (AR balance, DSO = AR/Revenue × 30), Payables (AP, DPO), Inventory (value, turnover, days), Team (payroll cost, revenue per head).\n\nLayout: row 1 cash health (current + runway, 6-month flow bars, net); row 2 revenue + GP trends vs target; row 3 receivables (total AR, DSO trend, aging pie); row 4 P&L waterfall + cost mix.\n\nAlerts: runway <6 months red banner, DSO >60 yellow, GP% 2-month drop CEO alert, cash below critical → all shareholders.\n\nData: Supabase aggregations, CSV import (SQL Account), Stripe/Billplz auto-sync.\n\nGenerate full code, SQL views, CSV import, 3 months sample data.",
+    "preview_prompt": "Show a financial KPI dashboard for 'Hong Tat Sdn Bhd'. Top has 'Cash Runway: 18 months' in green and 'Current Cash: RM 1.45M' as a giant figure. Below shows 6-month inflow vs outflow bars (slight surplus), MRR line trending up to RM 245K, Gross Margin gauge at 42%. Bottom has AR aging donut and a P&L waterfall chart from Revenue down to Net Profit. Right has 4 alert badges (1 yellow for DSO 52 days).",
+    "tags": ["data", "finance", "cfo", "dashboard", "kpi"],
+    "industries": ["general", "services", "technology"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达企业 Sdn Bhd", "default_value_en": "Hong Tat Enterprise Sdn Bhd", "input_type": "text"},
+      {"key": "business_stage", "label_en": "Business Stage", "label_zh": "业务阶段", "default_value": "成长期 SME（年营收 RM 5-20M）", "default_value_en": "Growth-stage SME (RM 5-20M revenue)", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "website-traffic-analyzer",
+    "title_en": "Website Traffic & Conversion Analyzer",
+    "title_zh": "网站流量与转化分析工具",
+    "subtitle": "Self-hosted website analytics with traffic sources, conversion funnels, and event tracking — privacy-friendly alternative to GA",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 75,
+    "boss_tip": "GA4 太复杂，多数老板根本不会用。自己做一个简单版只看 5 个数：访客、页面浏览、转化、来源、跳出率，就够了。",
+    "prompt_body": "你是一位资深 web analytics 工程师。\n\n构建一个自托管、隐私友好的网站流量分析工具，给 {website_name} 使用，作为 Google Analytics 的简单替代品。\n\n## 技术栈\n- Next.js 16 + TypeScript（Server Actions 收集数据）\n- Supabase（visits, events, funnels）\n- 嵌入：单一 JS snippet\n- 图表：recharts\n- 隐私：不存 IP、不用 cookies、GDPR/PDPA 合规\n\n## 数据模型\n- `visits`: id, site_id, anon_id (基于 user agent + 屏幕指纹的非个人化 hash), entry_url, referrer, country, device, browser, os, started_at, ended_at, page_views\n- `page_views`: id, visit_id, url, viewed_at, time_on_page, scroll_depth\n- `events`: id, visit_id, event_name, properties (jsonb), occurred_at\n- `funnels`: id, name, steps (array of event names)\n\n## 嵌入脚本\n```html\n<script defer src=\"https://your-domain.com/track.js\" data-site-id=\"abc123\"></script>\n```\n\n脚本自动追踪：\n- 页面浏览\n- 停留时间\n- 滚动深度\n- 出站链接点击\n- 文件下载\n\n## 页面\n\n### 1. /dashboard 概览\n- KPI 卡：今日访客 / 页面浏览 / 跳出率 / 平均时长\n- 与昨日对比\n- 实时访客数（最近 5 分钟活跃）\n\n### 2. /pages 页面分析\n- 表格：URL + 浏览数 + 平均时长 + 跳出率 + 退出率\n- 排序与筛选\n\n### 3. /sources 流量来源\n- 来源饼图（直接 / 搜索 / 社交 / 推荐）\n- 详细来源域名列表\n- UTM 追踪：utm_source / medium / campaign\n\n### 4. /events 自定义事件\n- 列出所有事件\n- 触发数 + 平均触发率\n- 跨页面追踪\n\n### 5. /funnels 转化漏斗\n- 创建漏斗：定义 step 序列（如 \"看产品页\" → \"加购物车\" → \"结账\" → \"付款成功\"）\n- 显示每步通过率\n- 找出最大流失点\n\n### 6. /reports/realtime 实时\n- 当前活跃访客\n- 正在看哪些页面\n- 来自哪里\n\n### 7. /admin/sites 多站点支持\n- 一个账号管理多个网站\n- 每个站点独立 site_id\n\n## 业务逻辑\n- 隐私：anon_id 每天重置（防止跨日追踪个人）\n- 不存 IP：进站时立即丢弃，只存国家 / 城市\n- 数据保留：最多 1 年，自动归档\n- 无 cookies：使用 sessionStorage + 服务端 session\n- 防 bot：过滤已知 bot user agents\n\n请生成完整代码、嵌入脚本、Supabase 迁移、隐私政策模板。",
+    "prompt_body_en": "Build a self-hosted privacy-friendly website analytics tool for {website_name} as a simple GA alternative.\n\nStack: Next.js 16 + TS Server Actions, Supabase (visits, page_views, events, funnels), single JS snippet, recharts, no IPs/cookies, GDPR/PDPA compliant.\n\nEmbed: <script defer src=\"track.js\" data-site-id=\"abc\">. Tracks page views, time on page, scroll depth, outbound clicks, downloads.\n\nPages: /dashboard KPIs (visitors, page views, bounce, avg duration vs yesterday + live count); /pages URL table with metrics; /sources pie + UTM tracking; /events custom event list; /funnels multi-step conversion analysis with drop-off identification; /reports/realtime live visitors; /admin/sites multi-site.\n\nLogic: anon_id resets daily, no IP storage (only country), 1-year retention, sessionStorage not cookies, bot user agent filtering.\n\nGenerate full code, embed script, migration, privacy policy template.",
+    "preview_prompt": "Show a website analytics dashboard for 'hongtat.com.my'. Top KPIs: Visitors Today 1,247 (+8% green), Page Views 3,890, Bounce Rate 42%, Avg Duration 2:34. Below: live visitors counter showing 23 active. Charts: 7-day visitor line, sources pie (Search 45%, Direct 28%, Social 15%, Referral 12%), top pages table. Right sidebar shows realtime activity with 3 visitor cards from KL, JB, Singapore.",
+    "tags": ["data", "analytics", "privacy", "supabase", "dashboard"],
+    "industries": ["general", "ecommerce"],
+    "variables": [
+      {"key": "website_name", "label_en": "Website Name", "label_zh": "网站名称", "default_value": "hongtat.com.my", "default_value_en": "hongtat.com.my", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "cohort-retention-analyzer",
+    "title_en": "Customer Cohort & Retention Analyzer",
+    "title_zh": "客户队列与留存分析工具",
+    "subtitle": "Visualize customer retention by signup month with cohort heatmaps, LTV calculations, and segment comparisons",
+    "category": "data",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "看 cohort 比看总数有用。如果今年签的客户 3 个月留存比去年差，说明产品或客群出问题了。",
+    "prompt_body": "你是一位资深增长分析师。\n\n为 {business_name}（{business_type}）构建一个客户队列分析工具。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（customers, orders, subscriptions）\n- 计算：Postgres SQL（GENERATE_SERIES + GROUP BY）\n- 图表：recharts heatmap\n\n## 核心概念\n\n### 队列定义\n按以下任一方式定义 cohort：\n- 注册月份\n- 第一次购买月份\n- 第一次订阅月份\n- 自定义事件\n\n### 留存定义\n- **N-Day Retention**：M0 注册的客户在 M1, M2, ..., MN 是否仍活跃？\n- **重复购买率**：在第 N 个月做过 ≥1 次交易的客户比例\n- **收入留存**：N 月收入 / M0 月收入\n\n## 页面\n\n### 1. /cohort/retention 留存热图\n- 行：注册月份（24 个 cohort）\n- 列：M0, M1, M2, ..., M12\n- 单元格：% 留存\n- 颜色：深绿（高）→ 浅绿 → 黄 → 红（低）\n- 第一列 = 100%（基线）\n- 鼠标悬浮：显示绝对人数\n\n### 2. /cohort/revenue 收入留存\n- 同样格式，但单元格是 % 收入留存\n- 用于 SaaS / 订阅业务\n- 如果 > 100% 显示 \"扩张收入\"\n\n### 3. /cohort/ltv 客户终身价值\n- 按 cohort 计算累计 LTV\n- LTV = ∑ revenue / cohort_size\n- 与 CAC 对比（如有数据）\n- LTV / CAC 比率\n\n### 4. /cohort/segments 分群比较\n- 按渠道 / 计划 / 国家 / 性别等切分 cohort\n- 对比哪个群体留存最好\n\n### 5. /cohort/insights 洞察\n- 自动识别：\n  - 哪个月份的 cohort 表现最好（找原因）\n  - 哪个月份最差（找原因）\n  - 留存断崖出现在第几个月（找改进点）\n- 平均留存曲线\n\n## SQL 计算示例\n```sql\nWITH cohorts AS (\n  SELECT\n    customer_id,\n    DATE_TRUNC('month', signed_up_at) AS cohort_month\n  FROM customers\n),\nactive_months AS (\n  SELECT\n    o.customer_id,\n    DATE_TRUNC('month', o.order_date) AS active_month,\n    c.cohort_month\n  FROM orders o\n  JOIN cohorts c USING (customer_id)\n  GROUP BY o.customer_id, active_month, c.cohort_month\n),\nretention AS (\n  SELECT\n    cohort_month,\n    EXTRACT(MONTH FROM age(active_month, cohort_month)) AS month_offset,\n    COUNT(DISTINCT customer_id) AS active_users\n  FROM active_months\n  GROUP BY cohort_month, month_offset\n)\nSELECT * FROM retention ORDER BY cohort_month, month_offset;\n```\n\n## 业务逻辑\n- 自动每月重新计算\n- 导出 CSV 给 Excel 进一步分析\n- 支持自定义 \"active\" 定义（登录 / 购买 / 使用某功能）\n\n请生成完整代码、SQL 视图、20 个示例 cohort 数据。",
+    "prompt_body_en": "Build a customer cohort analyzer for {business_name} ({business_type}).\n\nStack: Next.js 16 + TS, Supabase (customers, orders, subscriptions), Postgres SQL with generate_series + group by, recharts heatmap.\n\nCohort definition: signup month, first order month, first subscription month, or custom event. Retention metrics: N-day retention, repeat purchase, revenue retention.\n\nPages: /cohort/retention heatmap (rows = signup months × 24, cols = M0-M12, cells = retention %, color green→red); /cohort/revenue same layout for revenue retention with expansion >100%; /cohort/ltv cumulative LTV per cohort + LTV/CAC ratio; /cohort/segments comparison by channel/plan/country; /cohort/insights auto-identification of best/worst cohorts and retention cliff.\n\nSQL: cohort_month from signup, month_offset from order date, group by cohort × offset, calc active_users.\n\nLogic: monthly auto-recalc, CSV export, customizable 'active' definition (login/purchase/feature use).\n\nGenerate full code, SQL views, 20 sample cohort data.",
+    "preview_prompt": "Show a cohort retention heatmap with 12 rows (Jan 2025 to Dec 2025) and 12 columns (M0 to M11). Color gradient from dark green (100% at M0) to red (low retention at M11). Some cohorts visibly perform better. Top has KPIs: Avg M3 Retention 68%, Avg LTV RM 1,240, Best Cohort Aug 2025. Right side shows a 'Cohort Insights' panel with 3 bullet observations.",
+    "tags": ["data", "cohort", "retention", "ltv", "dashboard"],
+    "industries": ["general", "ecommerce", "technology"],
+    "variables": [
+      {"key": "business_name", "label_en": "Business Name", "label_zh": "公司名称", "default_value": "宏达零售连锁", "default_value_en": "Hong Tat Retail Chain", "input_type": "text"},
+      {"key": "business_type", "label_en": "Business Type", "label_zh": "业务类型", "default_value": "会员制零售连锁", "default_value_en": "Membership-based retail chain", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "qr-code-bulk-generator",
+    "title_en": "QR Code Bulk Generator",
+    "title_zh": "二维码批量生成器",
+    "subtitle": "Generate hundreds of QR codes at once for tables, products, business cards, or marketing campaigns with custom design",
+    "category": "utilities",
+    "difficulty": "easy",
+    "estimated_minutes": 20,
+    "boss_tip": "QR 中间放 logo，看起来更专业。但 logo 不能超过 30%，否则手机扫不到。",
+    "prompt_body": "你是一位资深 web 工具开发者。\n\n构建一个 QR 码批量生成工具，可以一次生成几百个 QR 码。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- QR 生成：qrcode 包（服务端生成 SVG / PNG）\n- 客户端处理（无需上传服务器）\n- shadcn/ui Form\n- 导出：ZIP（含所有 PNG / SVG / PDF）\n\n## 主要用例\n1. **餐厅桌位**：生成 1-N 桌的二维码（每个 QR 跳转到 /table/[number]）\n2. **产品标签**：每个 SKU 一个 QR（指向产品页）\n3. **会员卡**：每个会员一个 QR（含 ID）\n4. **营销活动**：批量生成不同 UTM 参数的 QR 追踪不同渠道\n5. **业务名片**：批量生成员工 vCard QR\n\n## 页面\n\n### 1. /single 单个生成\n- 输入文本 / URL\n- 选择尺寸\n- 选择纠错等级（L/M/Q/H）\n- 选择前景色 / 背景色\n- 上传中心 logo（可选，最大 30%）\n- 实时预览\n- 下载 PNG / SVG / PDF\n\n### 2. /bulk 批量生成\n两种输入方式：\n#### A. 序列模式\n- 输入：基础 URL（如 https://shop.com/table/）\n- 输入：起始与结束数字（1 到 100）\n- 系统生成 100 个 QR：https://shop.com/table/1, /2, ..., /100\n- 每个 QR 标签：\"Table 1\", \"Table 2\", ...\n\n#### B. CSV 上传模式\n- 上传 CSV：每行 \"label, url\"\n- 系统为每行生成 QR\n- 标签来自 CSV\n\n### 3. /design 设计选项\n- 颜色方案预设（5 种品牌色组合）\n- 形状（方形 / 圆形 / 圆角）\n- Logo 上传\n- 标签字体与位置\n- 边距\n\n### 4. /export 导出\n- 选择格式：\n  - PNG（zip 包，每个 QR 一个文件）\n  - SVG（zip 包）\n  - 单一 PDF（A4 多个 QR 排版打印，可选 4 / 6 / 9 / 12 个/页）\n  - 单一 PDF（每个 QR 一页，含标签）\n- 排版预览\n\n### 5. /history 历史（localStorage）\n- 最近 10 次生成\n- 一键重新下载\n\n## 业务逻辑\n- 服务端生成大量 QR 时使用 stream（避免 memory 爆）\n- PNG 默认 512×512px（高清）\n- 纠错等级：含 logo 时强制 H（30% 容错）\n- 标签字体：默认 Inter，支持中文（Noto Sans SC）\n\n请生成完整代码与 5 个常见用例的预设模板。",
+    "prompt_body_en": "Build a QR code bulk generator.\n\nStack: Next.js 16 + TS, qrcode package SVG/PNG, client-side processing, shadcn Form, ZIP export.\n\nUse cases: restaurant tables, product labels, membership cards, marketing UTM campaigns, vCards.\n\nPages: /single (text/URL input, size, error correction L/M/Q/H, fg/bg colors, optional center logo ≤30%, preview, PNG/SVG/PDF download); /bulk (sequence mode: base URL + start/end numbers; CSV mode: label,url rows); /design (5 brand color presets, shape square/round/rounded, logo upload, label font/position, margin); /export (PNG/SVG zip, PDF A4 with 4/6/9/12 per page, single QR per page with label, preview); /history last 10 in localStorage.\n\nLogic: stream large bulk to avoid OOM, default 512×512 PNG, force H error correction with logo, Noto Sans SC for Chinese labels.\n\nGenerate full code with 5 preset templates.",
+    "preview_prompt": "Show a QR code bulk generator interface. Left panel: 'Sequence Mode' with base URL 'https://hongtat.com/table/' and range 1-50. Center: a preview grid showing the first 9 QR codes as thumbnails with labels 'Table 1' to 'Table 9'. Right panel: Design options (color, logo upload, error correction). Bottom: 'Export 50 QRs as PDF (A4, 6 per page)' button in yellow.",
+    "tags": ["utilities", "qr-code", "bulk", "tools"],
+    "industries": ["general", "fnb", "retail"],
+    "variables": [
+      {"key": "use_case", "label_en": "Use Case", "label_zh": "使用场景", "default_value": "餐厅桌位 QR 码", "default_value_en": "Restaurant table QR codes", "input_type": "text"}
+    ]
+  }
+]

@@ -43,3 +43,6 @@ next-env.d.ts
 
 # dev screenshots
 screenshots/
+
+# claude code
+.claude/

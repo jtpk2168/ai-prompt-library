@@ -1,0 +1,147 @@
+[
+  {
+    "slug": "bulk-image-resizer",
+    "title_en": "Bulk Image Resizer & Watermark Tool",
+    "title_zh": "图片批量缩放与水印工具",
+    "subtitle": "Resize, compress, and watermark hundreds of product photos in one upload — perfect for e-commerce listings",
+    "category": "utilities",
+    "difficulty": "easy",
+    "estimated_minutes": 25,
+    "boss_tip": "电商平台对图片尺寸要求不一样。Shopee 800×800、Lazada 1000×1000、自家网站 1200×1200。一次上传，多种尺寸全部出来，最省时间。",
+    "prompt_body": "你是一位资深前端工具开发者。\n\n构建一个浏览器端的图片批量处理工具，无需上传到服务器（隐私 + 速度）。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- 图片处理：browser-image-compression 或 sharp.js (WASM)\n- Canvas API：水印 + 调整\n- shadcn/ui Dropzone\n- 导出：JSZip 打包下载\n\n## 功能\n\n### 1. /upload 上传\n- 拖拽 / 选择多张图\n- 支持：JPG, PNG, WebP, HEIC（自动转 JPG）\n- 显示缩略图网格\n- 显示原始尺寸 + 文件大小\n\n### 2. /resize 缩放选项\n- 预设：\n  - Shopee 800×800\n  - Lazada 1000×1000\n  - Instagram 1080×1080 (方形)\n  - Instagram Story 1080×1920 (竖)\n  - Facebook Ad 1200×628\n  - 自定义尺寸\n- 缩放模式：\n  - Fit（保持比例，留白）\n  - Fill（填满，可能裁剪）\n  - Stretch（变形，不推荐）\n- 背景色（fit 模式时）\n- 一次输出多种尺寸（勾选）\n\n### 3. /compress 压缩\n- 质量：1-100\n- 输出格式：JPG / PNG / WebP\n- 估算文件大小\n- 目标文件大小（如 \"≤200KB\"）\n\n### 4. /watermark 水印\n- 上传水印图片（PNG 透明背景）\n- 或：文字水印（输入文字 + 字体 + 大小）\n- 位置：9 宫格选择\n- 透明度：0-100%\n- 大小：% 相对原图\n- 边距：px\n\n### 5. /rename 重命名\n- 批量重命名规则\n- 模板：{store-name}-{sku}-{number}\n- 序号起始\n- 大小写\n\n### 6. /export 导出\n- ZIP 下载（按文件夹组织）\n- 每张图的处理摘要\n- 一键复制 \"Shopee 上传\"、\"Lazada 上传\" 用的子文件夹\n\n## 业务逻辑\n- 全程 client-side，文件不上传服务器\n- 浏览器内存限制：单次最多 200 张图\n- 进度条显示处理进度\n- 失败图标记，继续处理其他\n\n请生成完整代码与 6 个电商平台尺寸预设。",
+    "prompt_body_en": "Build a browser-based bulk image processor (no server upload).\n\nStack: Next.js 16 + TS, browser-image-compression or sharp.js WASM, Canvas API, shadcn Dropzone, JSZip.\n\nPages: /upload (multi-file drag-drop, JPG/PNG/WebP/HEIC support, thumbnail grid); /resize (presets Shopee 800, Lazada 1000, IG 1080 square, IG Story 1080×1920, FB Ad 1200×628, custom; modes fit/fill/stretch with bg color; multi-output); /compress (quality 1-100, format JPG/PNG/WebP, target file size); /watermark (image or text, 9-position grid, opacity, size %, margin); /rename (batch template like {store}-{sku}-{n}, sequence, case); /export (ZIP organized by folder, summary, copy-ready Shopee/Lazada folders).\n\nLogic: 100% client-side, max 200 images per batch, progress bar, mark failures and continue.\n\nGenerate full code with 6 e-commerce size presets.",
+    "preview_prompt": "Show a bulk image processor with 24 thumbnails of product photos in a grid. Right side has a multi-step settings panel: 'Resize' showing 3 platform checkboxes (Shopee 800, Lazada 1000, IG Square), 'Watermark' with logo upload and 9-position grid (bottom-right selected), 'Quality' slider at 85%. Bottom shows 'Process 24 images → 72 outputs (~14 MB)' with a yellow 'Process & Download ZIP' button.",
+    "tags": ["utilities", "image", "ecommerce", "tools"],
+    "industries": ["ecommerce", "retail"],
+    "variables": [
+      {"key": "use_case", "label_en": "Use Case", "label_zh": "使用场景", "default_value": "电商产品图批量处理", "default_value_en": "E-commerce product photo batch processing", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "pdf-merger-splitter",
+    "title_en": "PDF Merger & Splitter",
+    "title_zh": "PDF 合并与拆分工具",
+    "subtitle": "Merge multiple PDFs, split one PDF into pages, reorder pages, and rotate — all in your browser",
+    "category": "utilities",
+    "difficulty": "easy",
+    "estimated_minutes": 20,
+    "boss_tip": "把所有月度报表合并成 1 份 PDF 发给客户，比发 10 个文件专业 10 倍。",
+    "prompt_body": "你是一位资深前端工具开发者。\n\n构建一个浏览器端的 PDF 处理工具，所有操作在客户端完成（隐私安全）。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- PDF 处理：pdf-lib（纯 JS，可 client-side）\n- 预览：pdfjs-dist\n- shadcn/ui\n- 拖拽：dnd-kit\n\n## 功能\n\n### 1. /merge 合并 PDF\n- 拖拽多个 PDF 文件\n- 显示每个 PDF 的缩略图（首页）\n- 拖拽重新排序\n- 一键合并\n- 下载结果\n\n### 2. /split 拆分 PDF\n- 上传一个 PDF\n- 显示所有页面缩略图\n- 选择拆分方式：\n  - 每页一个文件\n  - 按页范围（如 1-3, 4-6, 7-10）\n  - 按页数（每 5 页一个文件）\n- 一键拆分 → ZIP 下载\n\n### 3. /reorder 重排页面\n- 上传 PDF\n- 显示所有页面缩略图\n- 拖拽重排\n- 删除页面（×按钮）\n- 复制页面\n- 旋转页面（90° / 180° / 270°）\n- 一键导出新 PDF\n\n### 4. /extract 提取页面\n- 选择要保留的页面\n- 生成新 PDF\n\n### 5. /compress 压缩\n- 上传 PDF\n- 选择压缩等级（轻 / 中 / 重）\n- 显示原大小 vs 压缩后大小\n- 下载\n\n### 6. /protect 加密\n- 上传 PDF\n- 设置打开密码\n- 设置打印 / 编辑 / 复制权限\n- 下载\n\n### 7. /unlock 解密\n- 上传 PDF + 输入密码\n- 输出无密码 PDF\n\n## 业务逻辑\n- 100% 客户端：不上传任何文件到服务器\n- 历史记录（localStorage）：最近 5 次操作\n- 文件大小限制：单文件 ≤50MB（浏览器内存）\n- 进度条 for 大文件\n- 错误处理：损坏 PDF / 加密 PDF 友好提示\n\n## 设计\n- 大按钮，低门槛\n- 步骤式操作（上传 → 设置 → 下载）\n- 移动端友好\n\n请生成完整代码与 7 个工具的完整 UI。",
+    "prompt_body_en": "Build a browser-based PDF tool (100% client-side).\n\nStack: Next.js 16 + TS, pdf-lib for processing, pdfjs-dist for preview, shadcn, dnd-kit drag.\n\nPages: /merge (multi-PDF drag-drop, thumbnail grid, drag to reorder, merge button); /split (single PDF upload, page thumbnails, modes: each page / by ranges / by N pages, export ZIP); /reorder (page thumbnails, drag, delete, duplicate, rotate 90/180/270, export); /extract (select pages to keep, new PDF); /compress (level light/medium/heavy, before/after size); /protect (open password, print/edit/copy permissions); /unlock (password input, output unlocked).\n\nLogic: 100% client-side, last 5 operations in localStorage, 50MB single-file limit, progress for large files, friendly errors for corrupt/encrypted PDFs.\n\nDesign: large buttons, step-by-step, mobile-friendly. Generate full code for all 7 tools.",
+    "preview_prompt": "Show a PDF merger interface with 4 PDF thumbnails in a horizontal row, each showing the first page. Drag handles between them. Right side has the merged file preview and a 'Download Merged PDF (12 pages, 2.4 MB)' button in yellow. Top navigation shows tabs for 7 tools: Merge, Split, Reorder, Extract, Compress, Protect, Unlock with the Merge tab active.",
+    "tags": ["utilities", "pdf", "tools"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "use_case", "label_en": "Use Case", "label_zh": "使用场景", "default_value": "合并月度报表 PDF 给客户", "default_value_en": "Merge monthly reports for clients", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "digital-business-card-generator",
+    "title_en": "Digital Business Card Generator",
+    "title_zh": "数字名片生成器",
+    "subtitle": "Create shareable digital business cards with vCard, QR code, profile photo, and click-to-call/WhatsApp",
+    "category": "utilities",
+    "difficulty": "easy",
+    "estimated_minutes": 30,
+    "boss_tip": "数字名片有个好处：客户加入手机通讯录后，你换电话号码可以一键更新所有人的联系方式。",
+    "prompt_body": "你是一位资深 web 设计师。\n\n构建一个数字名片创建工具，每张名片有自己的网址，可以分享、加 QR 码、加入手机联系人。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（cards, users）\n- vCard 生成：vcards-js 或自己生成\n- QR 生成：qrcode\n- 头像存储：Supabase Storage\n\n## 数据模型\n- `cards`: id, slug, name, title, company, photo_url, email, phone, whatsapp, address, website, social_links (jsonb), bio, theme, owner_id, view_count, created_at\n- `users`: id, email, plan (free/pro)\n\n## 页面\n\n### 1. /create 创建名片（已登录）\n- 上传头像\n- 输入：姓名、职位、公司、邮箱、电话、WhatsApp、地址、网站\n- 社交链接：LinkedIn, Instagram, Facebook, X, GitHub\n- Bio：≤200 字介绍\n- 选择主题（5 个预设：Minimal / Yellow / Dark / Gradient / Photo BG）\n- 选择品牌色\n- 实时预览\n- 保存 → 自动生成 slug（如 /jay-tan）\n\n### 2. /[slug] 公开名片页\n- 移动端优先（大多数人在手机上看）\n- 顶部：头像 + 姓名 + 职位 + 公司\n- 中部：3-4 个大动作按钮\n  - 📞 一键拨号\n  - 💬 WhatsApp 直接聊天\n  - 📧 发邮件\n  - 📍 地图导航\n- 下部：社交链接图标\n- Bio 段\n- \"加入联系人\" 按钮 → 下载 vCard\n- 底部 QR 码（自己的链接）\n- \"创建你的数字名片\" 推广链接\n\n### 3. /[slug]/qr 全屏 QR 码\n- 大 QR 码方便扫描\n- 含名片 logo\n- \"扫码加联系人\" 文字\n\n### 4. /admin/cards 管理\n- 我的所有名片（如有多张）\n- 浏览数、扫描数\n- 编辑\n- 分享：复制链接、下载 QR PNG\n\n### 5. /admin/analytics\n- 浏览来源（直接 / QR / 链接分享）\n- 浏览国家\n- 哪些动作被点击最多\n\n## 业务逻辑\n- vCard 格式：标准 .vcf 文件\n- QR 码内容：直接放名片 URL\n- 自动 OG image：每张名片自动生成 1200×630 OG 图（含头像 + 姓名）\n- SEO：每张名片有自己的 meta tags\n- 免费版：1 张名片，pro 版：无限张\n\n请生成完整代码、Supabase 迁移、3 个名片主题。",
+    "prompt_body_en": "Build a digital business card creator where each card has its own URL.\n\nStack: Next.js 16 + TS, Supabase (cards, users), vcards-js, qrcode, Supabase Storage.\n\nPages: /create (avatar upload, name/title/company/email/phone/WhatsApp/address/website, social links, bio ≤200 words, 5 themes Minimal/Yellow/Dark/Gradient/PhotoBG, brand color, live preview, auto slug); /[slug] public mobile-first card (avatar + name + title + company at top, 4 big action buttons Call/WhatsApp/Email/Map, social icons, bio, 'Add to Contacts' vCard download, QR at bottom, promo link); /[slug]/qr full-screen QR; /admin/cards multi-card management with views and shares; /admin/analytics views, source, country, action clicks.\n\nLogic: standard .vcf format, QR contains card URL, auto OG image 1200×630 with avatar + name, per-card SEO meta tags, free 1 card / pro unlimited.\n\nGenerate full code, migration, 3 themes.",
+    "preview_prompt": "Show a digital business card on a mobile phone mockup. Top: round avatar photo, name 'Jay Tan', title 'Founder & CEO', company 'Hong Tat Sdn Bhd'. Below: 4 large rounded action buttons (Call yellow, WhatsApp green, Email blue, Map red) with icons. Then social media icons row. Bio paragraph. At the bottom: a QR code in a card and 'Add to Contacts' button. Background uses a soft gradient with brand yellow accents.",
+    "tags": ["utilities", "business-card", "qr-code", "supabase"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "owner_role", "label_en": "Owner Role", "label_zh": "用户角色", "default_value": "公司创始人", "default_value_en": "Company founder", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "team-password-vault",
+    "title_en": "Team Password Vault Manager",
+    "title_zh": "团队密码保险库管理器",
+    "subtitle": "Securely store, share, and rotate team passwords with role-based access and audit logging",
+    "category": "utilities",
+    "difficulty": "hard",
+    "estimated_minutes": 90,
+    "boss_tip": "密码不要存 Excel！员工离职后你忘记改的话，他还能登录所有系统。一定要用 vault，离职一键 revoke。",
+    "prompt_body": "你是一位资深安全工程师。\n\n构建一个团队密码管理器，让公司可以安全共享密码、追踪谁访问过、员工离职时一键 revoke。\n\n## 安全核心\n- 客户端加密：密码用用户密码派生的 key 加密后才存到服务器\n- 服务器只存密文，看不到明文（zero-knowledge）\n- 主密码不在服务器存（用 PBKDF2 派生）\n- HTTPS only\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（vaults, items, shares, audit_logs, users）\n- 加密：Web Crypto API（AES-GCM + PBKDF2）\n- Auth：Supabase Auth\n\n## 数据模型\n- `vaults`: id, name, owner_id, created_at\n- `items`: id, vault_id, name, type (login/note/card/identity), encrypted_data, created_at, updated_at\n- `shares`: id, vault_id, user_id, role (admin/edit/view), shared_at\n- `audit_logs`: id, user_id, action, item_id, timestamp, ip_address\n\n## 页面\n\n### 1. /vault 我的保险库\n- 列表所有 items\n- 搜索 + 类别筛选\n- 点击查看（输入主密码解密）\n- 复制密码到剪贴板（30 秒后自动清空）\n- 一键打开网站并自动填充（浏览器扩展）\n\n### 2. /add 添加密码\n- 类型：登录 / 信用卡 / 笔记 / 身份\n- 姓名、网址、用户名、密码、备注\n- 密码生成器：长度 + 字符集\n- 强度评分（zxcvbn 库）\n- 加密后保存\n\n### 3. /share 共享\n- 选择 item\n- 选择团队成员\n- 设定权限：仅查看 / 编辑 / 完整\n- 设定到期时间\n\n### 4. /admin/team 团队管理\n- 邀请新成员\n- 角色管理\n- 离职流程：标记 \"已离职\" → 自动撤销所有访问\n- 强制密码轮换\n\n### 5. /audit 审计日志\n- 谁、什么时候、查看了哪个 item\n- 异常告警（异常时间 / 频繁访问 / 大量复制）\n- 导出报告\n\n### 6. /security 安全设置\n- 启用 2FA\n- 主密码修改\n- 紧急联系人（万一忘记主密码）\n- Session 管理\n\n## 业务逻辑\n- 密码强度规则：最少 12 字符 + 大小写 + 数字 + 符号\n- 自动密码轮换提醒：超过 90 天未改 → 提醒\n- 弱密码扫描：定期检查 vault 内的弱密码\n- 泄露密码检查：API 调用 haveibeenpwned 检查（hash 前缀，不传完整密码）\n- 副本同步：所有客户端通过 Supabase Realtime 同步\n\n请生成完整代码、Supabase 迁移、加密 / 解密的工具函数、3 个示例 item。",
+    "prompt_body_en": "Build a team password vault with zero-knowledge encryption.\n\nSecurity: client-side encryption (AES-GCM + PBKDF2 master password derivation), server stores only ciphertext, HTTPS only.\n\nStack: Next.js 16 + TS, Supabase (vaults, items, shares, audit_logs, users), Web Crypto API, Supabase Auth.\n\nPages: /vault item list with search, click to decrypt with master password, copy with 30s auto-clear, browser extension autofill; /add (type login/card/note/identity, password generator, strength score zxcvbn, encrypt + save); /share (select item + team member + role view/edit/full + expiry); /admin/team (invite, roles, mark left → auto revoke, force rotation); /audit (who/when/what, anomaly alerts, export); /security (2FA, change master, emergency contact, sessions).\n\nLogic: min 12 char + mixed case + numbers + symbols, 90-day rotation reminders, weak password scan, haveibeenpwned check via hash prefix, Supabase Realtime sync.\n\nGenerate full code, migration, encrypt/decrypt utils, 3 sample items.",
+    "preview_prompt": "Show a password vault interface for 'Hong Tat Team Vault'. Left sidebar lists categories (All, Logins, Cards, Notes). Center shows a list of 8 items with website favicons (Google Workspace, AWS, Stripe, Mailchimp, etc.) and security indicators (5 strong green, 2 medium yellow, 1 weak red). Right side shows the selected item details with masked password and copy button. Top right has a 'Share' button and team member avatars.",
+    "tags": ["utilities", "security", "passwords", "supabase-rls", "full-app"],
+    "industries": ["general", "technology"],
+    "variables": [
+      {"key": "team_size", "label_en": "Team Size", "label_zh": "团队人数", "default_value": "15", "default_value_en": "15", "input_type": "number"}
+    ]
+  },
+  {
+    "slug": "client-file-portal",
+    "title_en": "Client File Sharing Portal",
+    "title_zh": "客户文件共享门户",
+    "subtitle": "Branded file portal where clients can securely upload, download, and review documents — alternative to Dropbox/Google Drive",
+    "category": "utilities",
+    "difficulty": "medium",
+    "estimated_minutes": 75,
+    "boss_tip": "客户最讨厌每个项目都要装新 App。给他一个网页链接 + 密码，比 Dropbox / Google Drive 更省事。",
+    "prompt_body": "你是一位资深 SaaS 产品经理。\n\n为 {company_name}（{company_type}）构建一个客户文件共享门户，让每个客户有自己的子域名或链接，安全收发文件。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase Storage\n- Auth：Supabase Auth + 客户端 magic link\n- 客户端文件压缩 / 预览\n\n## 数据模型\n- `clients`: id, name, email, company, contact_person, brand_color, logo_url, status\n- `projects`: id, client_id, name, description, status, deadline, created_at\n- `files`: id, project_id, filename, size, mime_type, storage_path, uploaded_by, uploaded_at, version\n- `comments`: id, file_id, user_id, text, created_at\n- `activity_log`: id, client_id, action, entity_id, performed_by, performed_at\n\n## 页面\n\n### 客户端 /portal/[client-slug]\n- 客户登录页：输入邮箱 → 收 magic link\n- 主页：欢迎 + 项目列表\n- /portal/[slug]/project/[id]：\n  - 文件夹视图\n  - 拖拽上传文件\n  - 预览：图片 / PDF / 视频 / 文档\n  - 下载\n  - 评论文件\n  - 版本历史\n- /portal/[slug]/messages：直接和服务团队聊天\n- /portal/[slug]/invoices：当前发票与付款历史\n\n### 公司端 /admin\n- /admin/clients：客户列表 + 添加新客户\n- /admin/clients/[id]：客户档案 + 项目 + 联系人\n- /admin/projects：所有项目\n- /admin/projects/[id]：管理文件 / 添加描述 / 邀请客户查看\n- /admin/files：所有文件库\n- /admin/activity：所有客户的活动日志\n\n## 品牌定制\n- 每个客户可以自己上传 logo + 选品牌色\n- /portal/[slug] 显示客户自己的 logo（如果有）\n- 自动生成专属 OG 预览图\n\n## 业务逻辑\n- 文件大小：单个 ≤500MB（Supabase Storage）\n- 自动文件类型分组（图片 / 文档 / 视频）\n- 安全：文件 URL 是签名的，2 小时过期\n- 水印（可选）：PDF 自动加客户姓名水印（防外传）\n- 通知：客户上传 / 下载文件 → 邮件通知项目经理\n- 自动归档：超过 6 个月不活跃的项目自动归档\n\n请生成完整代码、Supabase 迁移、3 个客户与 5 个项目示例。",
+    "prompt_body_en": "Build a branded client file portal as a Dropbox/Google Drive alternative.\n\nStack: Next.js 16 + TS, Supabase Storage, Supabase Auth + magic link, client-side file compression/preview.\n\nClient /portal/[client-slug]: magic link login, project list home, project page with folder view, drag-upload, preview (image/PDF/video/doc), download, comments, version history; /messages chat with service team; /invoices.\n\n/admin: /clients CRUD, client profile, /projects with file management and client invitation, /files library, /activity logs.\n\nBranding: per-client logo and color, custom OG image.\n\nLogic: 500MB single file, file type grouping, signed URLs 2h expiry, optional PDF watermark with client name, upload/download email notifications, 6-month inactive auto-archive.\n\nGenerate full code, migration, 3 clients + 5 projects seed.",
+    "preview_prompt": "Show a client portal home page for 'Acme Marketing Sdn Bhd' branded with their pink logo and color scheme. Header shows their logo, project name, and welcome message. Below is a folder grid with 4 folders (Brand Assets, Campaign Q1, Reports, Invoices) each with file counts. Right sidebar shows recent activity feed. Top right has 'Upload Files' button and a chat icon with notification dot.",
+    "tags": ["utilities", "file-sharing", "client-portal", "supabase", "full-app"],
+    "industries": ["services", "general"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "智咨企业顾问 Sdn Bhd", "default_value_en": "BrightAdvise Consulting Sdn Bhd", "input_type": "text"},
+      {"key": "company_type", "label_en": "Company Type", "label_zh": "公司类型", "default_value": "B2B 顾问服务", "default_value_en": "B2B consulting services", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "malaysia-holiday-calendar",
+    "title_en": "Malaysia Holiday Calendar Widget",
+    "title_zh": "马来西亚公假日历组件",
+    "subtitle": "Embeddable calendar showing Malaysia's public holidays by state with Hari Raya, CNY, Deepavali, and more",
+    "category": "utilities",
+    "difficulty": "easy",
+    "estimated_minutes": 25,
+    "boss_tip": "公司排班一定要看公假。Sabah 跟 Sarawak 的假期跟半岛不一样，员工跨州出差最容易出错。",
+    "prompt_body": "你是一位资深前端开发者。\n\n构建一个马来西亚公假日历工具，包含全国与各州的所有公假，可以嵌入到任何网站或公司内部系统。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Tailwind + shadcn/ui\n- 数据：JSON file with all 2026 holidays（手动维护或从 publicholidays.com.my 同步）\n- 可嵌入：iframe + JS widget\n\n## 数据结构\n```json\n{\n  \"date\": \"2026-01-01\",\n  \"name_en\": \"New Year's Day\",\n  \"name_zh\": \"元旦\",\n  \"name_ms\": \"Tahun Baru\",\n  \"type\": \"federal\",\n  \"states\": [\"all\"],\n  \"category\": \"public\"\n}\n```\n\n## 页面\n\n### 1. / 全年日历视图\n- 12 个月的月历\n- 公假日期高亮（不同颜色 by 类型）\n- 鼠标悬浮显示假期名（中英马三语）\n- 切换州（半岛 / Sabah / Sarawak / 各州）\n- 下载 ICS 文件（导入 Google Calendar / Outlook）\n\n### 2. /list 列表视图\n- 所有公假列表\n- 按月分组\n- 每条：日期、星期、节日名（三语）、适用州、是否补假\n- 下个公假倒计时\n\n### 3. /upcoming 即将到来\n- 接下来 5 个公假\n- 距离今天的天数\n- 长周末提示（如 \"周一是公假，可以请周二做 4 天小假\"）\n\n### 4. /api 公开 API\n```\nGET /api/holidays?year=2026&state=selangor\n```\n返回 JSON，免费供其他网站使用\n\n### 5. /widget 嵌入代码生成器\n- 选择尺寸（300×400 / 500×600 / 全屏）\n- 选择主题（亮 / 暗）\n- 选择州\n- 生成 iframe 代码与 JS embed 代码\n- 复制按钮\n\n### 6. /admin 数据管理（仅维护者）\n- CRUD 假期数据\n- 上传新一年的 JSON\n- 自动生成 ICS\n\n## 业务逻辑\n- 年度更新：每年 12 月发布下一年的数据\n- 长周末检测：自动识别连续假期\n- 桥接日（Bridge day）建议：「这天请假可以连成 5 天」\n- 多语言：中、英、马来\n\n请生成完整代码、2026 年完整马来西亚公假数据 JSON，与嵌入示例。",
+    "prompt_body_en": "Build a Malaysia public holiday calendar tool with state-specific holidays and embed widget.\n\nStack: Next.js 16 + TS, Tailwind + shadcn, JSON data file (or API sync), iframe + JS embed.\n\nData structure: { date, name_en, name_zh, name_ms, type, states, category }.\n\nPages: / yearly 12-month calendar with highlighted holidays, hover tooltip in 3 languages, state switcher (Peninsula/Sabah/Sarawak/per state), ICS download; /list grouped by month with day, name, applicable states, replacement day, next holiday countdown; /upcoming next 5 holidays with days remaining and long-weekend tips; /api public GET /api/holidays?year=&state=; /widget embed code generator (size, theme, state); /admin data CRUD.\n\nLogic: yearly Dec update, long weekend detection, bridge day suggestions, multi-language CN/EN/MS.\n\nGenerate full code, complete 2026 Malaysia holiday JSON, embed examples.",
+    "preview_prompt": "Show a Malaysia 2026 public holiday calendar with 12 months in a grid. Highlight Hari Raya Aidilfitri (Mar 21-22), Wesak (May 5), Hari Raya Aidiladha (May 28), Merdeka (Aug 31), Malaysia Day (Sep 16), Deepavali (Nov 8), Christmas (Dec 25), CNY (Feb 17-18). Top has state filter pills (Peninsula, Sabah, Sarawak, per state) and a 'Download ICS' button. Right sidebar shows 'Upcoming Holidays' with countdowns.",
+    "tags": ["utilities", "calendar", "malaysia", "tools"],
+    "industries": ["general"],
+    "variables": [
+      {"key": "default_state", "label_en": "Default State", "label_zh": "默认州", "default_value": "Selangor", "default_value_en": "Selangor", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "unit-converter-tool",
+    "title_en": "Unit Converter & Calculator Tool",
+    "title_zh": "单位转换与计算工具",
+    "subtitle": "All-in-one converter for length, weight, currency, temperature, area, volume — plus engineering calculators",
+    "category": "utilities",
+    "difficulty": "easy",
+    "estimated_minutes": 30,
+    "boss_tip": "客户问 \"5kg 是多少 catty?\" 你能马上回答比拿计算机更专业。这种小工具老板自己手机存一个就好。",
+    "prompt_body": "你是一位资深前端工具开发者。\n\n构建一个全能单位转换与计算工具，专门为东南亚商业场景设计。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- 计算：mathjs（高精度）\n- 汇率：exchangerate-api.com\n- 客户端处理\n- shadcn/ui\n\n## 主要类别\n\n### 1. /length 长度\n- 米 / 厘米 / 毫米 / 公里\n- 英寸 / 英尺 / 码 / 英里\n- 中式：尺 / 寸 / 丈\n- 海里\n\n### 2. /weight 重量\n- 公斤 / 公克 / 公吨 / 毫克\n- 磅 / 盎司\n- 中式：斤 / 两 / 担 / catty (常见马来西亚菜市)\n- carat（珠宝）\n\n### 3. /volume 容积\n- 升 / 毫升 / 立方米\n- 加仑（美 / 英）/ 夸脱 / 品脱\n- 茶匙 / 汤匙 / 杯（美式 / 公制）\n- 桶（油）\n\n### 4. /area 面积\n- 平方米 / 公顷 / 平方公里\n- 平方英尺 / 英亩\n- 中式：亩\n\n### 5. /temperature 温度\n- 摄氏 / 华氏 / 开尔文\n- 烹饪用：实时显示烤箱温度对照\n\n### 6. /currency 货币\n- RM, USD, SGD, CNY, EUR, JPY, GBP, AUD, IDR, THB, PHP, VND\n- 实时汇率（每小时更新）\n- 收藏常用对\n\n### 7. /time 时间与时区\n- 时长换算（秒/分/时/天）\n- 多时区时间（KL / 北京 / 东京 / 纽约 / 伦敦）\n- 工作日计算器（A 日期 + N 工作日 = ?）\n- 倒计时\n\n### 8. /data 数据存储\n- bytes / KB / MB / GB / TB\n- 二进制 vs 十进制\n\n### 9. /calculators 业务计算器\n- BMI 计算器\n- 贷款月供\n- 复利计算\n- 折扣计算\n- SST 6% 计算\n- 小费计算\n- 个税快算\n- EPF / SOCSO 计算\n- 加班费\n\n### 10. /tools 实用工具\n- 中英文字数统计\n- Slug 生成器\n- Base64 编码 / 解码\n- URL 编码 / 解码\n- JSON 格式化\n- HTML 转文本\n\n## 业务逻辑\n- 即时计算（输入即变）\n- 历史记录（最近 20 次）\n- 收藏常用转换\n- 离线优先（PWA）\n- 中英双语界面\n\n请生成完整代码与所有 10 个工具的实现。",
+    "prompt_body_en": "Build an all-in-one converter tool optimized for Southeast Asian business.\n\nStack: Next.js 16 + TS, mathjs, exchangerate-api, client-side, shadcn.\n\nCategories: /length (m/cm/mm/km, in/ft/yd/mi, Chinese chi/cun/zhang, nautical mile); /weight (kg/g/t/mg, lb/oz, Chinese jin/liang/dan/catty, carat); /volume (L/mL/m3, US/UK gallons, tsp/tbsp/cup, oil barrel); /area (m2/ha/km2, ft2/acre, Chinese mu); /temperature (C/F/K with cooking oven chart); /currency (RM, USD, SGD, CNY, EUR, JPY, GBP, AUD, IDR, THB, PHP, VND with hourly rates and favorites); /time (durations, multi-timezone clock, business day calculator, countdown); /data (bytes/KB/MB/GB/TB binary vs decimal); /calculators (BMI, loan, compound interest, discount, SST 6%, tip, income tax, EPF/SOCSO, overtime); /tools (CN/EN word count, slug, Base64, URL encode, JSON format, HTML to text).\n\nLogic: instant calculation, last 20 history, favorites, offline-first PWA, bilingual UI.\n\nGenerate full code for all 10 tools.",
+    "preview_prompt": "Show a multi-tool converter interface with 10 category tabs at the top. The 'Weight' tab is active showing a 2-column converter: left side input '5 kg' with dropdown, right side output '8.27 catty / 11.02 lb / 5000 g' updating live. Below shows 'Recent Conversions' with 5 history items and a 'Favorite' star button. Sidebar lists all 10 tool categories with icons. Use clean, calculator-app aesthetic.",
+    "tags": ["utilities", "converter", "calculator", "tools", "pwa"],
+    "industries": ["general"],
+    "variables": [
+      {"key": "default_category", "label_en": "Default Category", "label_zh": "默认类别", "default_value": "货币 Currency", "default_value_en": "Currency", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "receipt-scanner-ocr",
+    "title_en": "Receipt Scanner & Expense OCR Tool",
+    "title_zh": "收据扫描与费用 OCR 工具",
+    "subtitle": "Snap a photo of any receipt and get extracted merchant, date, amount, and SST in a structured expense entry",
+    "category": "utilities",
+    "difficulty": "medium",
+    "estimated_minutes": 45,
+    "boss_tip": "员工最讨厌报销表格。让他们拍张照就 ok，OCR 自动填表，月底会计也轻松。",
+    "prompt_body": "你是一位资深 AI 应用工程师。\n\n构建一个收据 OCR 工具，让员工拍照上传 → 自动提取商家、日期、金额、SST，并保存为可导出的费用条目。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- OCR：Claude API（vision，支持中英马来文）或 Tesseract.js（离线）\n- Supabase（receipts, expenses, categories）\n- Storage：原始照片\n- shadcn/ui\n\n## 数据模型\n- `receipts`: id, image_url, ocr_raw_text, merchant, date, total, sst, category_id, status (processing/extracted/verified/rejected), uploaded_by, processed_at\n- `expenses`: id, receipt_id, employee_id, project_id, amount, category, status (draft/submitted/approved/reimbursed), notes\n- `categories`: id, name, default_account\n\n## 页面\n\n### 1. /scan 扫描收据（移动端）\n- 大按钮：拍照 / 从相册选\n- 上传后立即显示加载动画\n- OCR 处理 → 显示提取结果\n- 用户可修改任何字段\n- 选择类别（餐饮 / 交通 / 办公 / 招待 / 其他）\n- 备注（可选）\n- 关联项目（可选）\n- 提交\n\n### 2. /expenses 我的费用\n- 列表所有提交的费用\n- 按月汇总\n- 状态徽章（草稿 / 已提交 / 已批准 / 已报销）\n- 搜索 + 类别筛选\n\n### 3. /reports 月度报表\n- 总报销金额\n- 按类别分布\n- 按项目分布\n- 待处理 vs 已完成\n- 导出 Excel / PDF 给会计\n\n### 4. /admin/approve 经理审批\n- 待审批列表\n- 看缩略图 + 提取数据\n- 一键批准 / 拒绝\n- 异常告警：金额异常 / 重复 receipt / 与发票不符\n\n### 5. /admin/categories 类别管理\n- 增删类别\n- 关联会计科目\n\n## OCR 流程\n```\n1. 用户上传图片\n2. 压缩 + 旋转校正（如需要）\n3. 调用 Claude API：\n   - System: \"You are an expert at extracting data from Malaysian receipts. Return JSON.\"\n   - User: 图片 + \"Extract: merchant_name, date (YYYY-MM-DD), total_amount (RM), sst_amount, items (if visible)\"\n4. 解析 JSON\n5. 显示结果给用户验证\n6. 用户可修改后提交\n```\n\n## 业务逻辑\n- 重复检测：同金额同日期同商家 → 提示重复\n- 合规检查：超过 RM {threshold} 必须有 receipt（无 receipt 拒绝）\n- 自动归类：基于商家名（如 KFC → 餐饮）\n- 多币种：自动识别外币并按当日汇率换算 RM\n- 月底自动汇总：每月 1 号发送上月总报销给会计\n\n请生成完整代码、Supabase 迁移、Claude API 集成示例。",
+    "prompt_body_en": "Build a receipt OCR tool that extracts merchant, date, amount, SST from photos.\n\nStack: Next.js 16 + TS, Claude API vision (CN/EN/MS support) or Tesseract.js, Supabase (receipts, expenses, categories), Storage, shadcn.\n\nPages: /scan mobile camera/upload with loading state, OCR result with editable fields, category dropdown, notes, project link, submit; /expenses my list with monthly grouping, status badges, filter; /reports monthly summary with charts and Excel/PDF export; /admin/approve manager queue with thumbnail, extracted data, one-click approve/reject, anomaly alerts (unusual amount, duplicate, mismatch); /admin/categories management.\n\nOCR flow: upload → compress + rotate → Claude API call with system prompt 'expert at Malaysian receipts, return JSON' extracting merchant_name, date, total, sst, items → parse → user verification → submit.\n\nLogic: duplicate detection, > {threshold} requires receipt, auto-categorization by merchant (KFC → F&B), multi-currency with daily FX, monthly auto-summary to accountant on 1st.\n\nGenerate full code, migration, Claude API integration.",
+    "preview_prompt": "Show a receipt scanner result page. Left side shows the photo of a Malaysian receipt from 'Restoran Hong Kee' with handwritten total. Right side shows extracted fields in a form: Merchant 'Restoran Hong Kee' (auto-detected), Date '2026-04-15', Total 'RM 87.50', SST 'RM 4.95', Category dropdown 'F&B 餐饮' selected, Notes input, Project dropdown. Bottom has 'Verify & Submit' button in yellow with confidence score 96%.",
+    "tags": ["utilities", "ocr", "ai", "expenses", "automation"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "threshold", "label_en": "Receipt Required Threshold", "label_zh": "需 receipt 门槛", "default_value": "20", "default_value_en": "20", "input_type": "number"}
+    ]
+  }
+]

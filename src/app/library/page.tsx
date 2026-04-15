@@ -149,10 +149,14 @@ export default async function LibraryPage({
       query = query.order("created_at", { ascending: false });
       break;
     case "rating":
-      query = query.order("rating", { ascending: false });
+      query = query
+        .order("rating", { ascending: false })
+        .order("created_at", { ascending: false });
       break;
     default:
-      query = query.order("times_copied", { ascending: false });
+      query = query
+        .order("times_copied", { ascending: false })
+        .order("created_at", { ascending: false });
   }
 
   const from = (currentPage - 1) * PAGE_SIZE;

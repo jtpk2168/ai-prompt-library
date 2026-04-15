@@ -1,0 +1,208 @@
+[
+  {
+    "slug": "brand-voice-style-guide",
+    "title_en": "Brand Voice & Style Guide Generator",
+    "title_zh": "品牌语调与文案风格指南生成器",
+    "subtitle": "Define your brand's tone, vocabulary, do's and don'ts in a one-page guide your whole team can follow",
+    "category": "marketing",
+    "difficulty": "easy",
+    "estimated_minutes": 20,
+    "boss_tip": "把这份指南打印出来贴在每个写文案的人桌上。新员工第一天就要看，不然你的品牌语气会越来越乱。",
+    "prompt_body": "你是一位资深品牌策划师，擅长为东南亚中小企业打造一致的品牌语调。\n\n请为 {brand_name}（{brand_industry}）打造一份品牌语调与文案风格指南。\n\n品牌信息：\n- 目标客户：{target_audience}\n- 品牌个性：{brand_personality}\n- 竞争对手：{competitors}\n- 现有文案样本：{sample_copy}\n\n## 输出 7 个部分\n\n### 1. 品牌一句话定位\n用一句话（≤20 字）说清楚品牌是什么、给谁、为什么不一样。\n\n### 2. 品牌语调四象限\n在两个维度上定位：\n- 正式 ↔ 随性\n- 严肃 ↔ 幽默\n并给出本品牌的位置与原因。\n\n### 3. 三大语调原则\n用三个对比句来定义：\n- 我们是「{adj1}」的，但不是「{opposite1}」的\n- 我们是「{adj2}」的，但不是「{opposite2}」的\n- 我们是「{adj3}」的，但不是「{opposite3}」的\n（自动生成，符合品牌个性）\n\n### 4. 词汇表\n- 我们用的词（10 个）：例如 \"伙伴\" 而不是 \"客户\"\n- 我们不用的词（10 个）：例如 \"低端\"、\"屌丝\"\n- 行业术语翻译（5 个）：把专业词换成大家听得懂的话\n\n### 5. 句式与语法规则\n- 句子长度（一般 ≤15 字）\n- 段落长度（一般 ≤3 句）\n- 标点偏好（用感叹号？问号？省略号？）\n- 大小写规则\n- 数字写法（要写 \"五个\" 还是 \"5 个\"）\n\n### 6. 范例对照\n5 组「不要这样写 vs 要这样写」的实际例子，覆盖：\n- 标题\n- WhatsApp 客服回复\n- IG caption\n- 邮件主题\n- 网站 CTA 按钮\n\n### 7. 品牌不能说的事\n5 条永远不能说 / 写 / 暗示的事（如政治、竞品、过度承诺、敏感字眼）。\n\n输出格式：1 页 A4 PDF（可打印），标题用品牌色 {brand_color}，正文 Inter 字体。",
+    "prompt_body_en": "Build a brand voice and style guide for {brand_name} ({brand_industry}) targeting {target_audience}, personality {brand_personality}, competitors {competitors}, sample copy {sample_copy}.\n\nOutput 7 sections: 1) one-line positioning ≤20 words; 2) tone quadrant on formal↔casual and serious↔funny axes; 3) three contrast principles (\"we are X but not Y\"); 4) vocabulary list (10 words we use, 10 we don't, 5 jargon translations); 5) sentence/paragraph length rules and punctuation prefs; 6) 5 'don't write this vs write this' examples for headline, WhatsApp, IG caption, email subject, CTA button; 7) 5 things never to say.\n\nFormat as a printable 1-page A4 PDF, headings in brand color {brand_color}, Inter body font.",
+    "preview_prompt": "Show a 1-page A4 PDF brand voice guide titled 'Lumière Studio Brand Voice'. Header has the studio logo and tagline. Content is in 7 numbered sections with the tone quadrant illustrated as a 2x2 grid, vocabulary words in two pill-shaped columns, and example pairs in a green/red comparison table at the bottom. Use a clean cream and gold color palette.",
+    "tags": ["marketing", "branding", "content", "automation"],
+    "industries": ["general", "services", "retail"],
+    "variables": [
+      {"key": "brand_name", "label_en": "Brand Name", "label_zh": "品牌名", "default_value": "Lumière 摄影工作室", "default_value_en": "Lumière Photography Studio", "input_type": "text"},
+      {"key": "brand_industry", "label_en": "Industry", "label_zh": "行业", "default_value": "婚礼与活动摄影", "default_value_en": "Wedding & event photography", "input_type": "text"},
+      {"key": "target_audience", "label_en": "Target Audience", "label_zh": "目标受众", "default_value": "25-35 岁即将结婚的中产情侣", "default_value_en": "Middle-class engaged couples aged 25-35", "input_type": "text"},
+      {"key": "brand_personality", "label_en": "Personality", "label_zh": "品牌个性", "default_value": "温暖、专业、有故事感", "default_value_en": "Warm, professional, story-driven", "input_type": "text"},
+      {"key": "competitors", "label_en": "Competitors", "label_zh": "竞争对手", "default_value": "其他婚礼摄影工作室", "default_value_en": "Other wedding photo studios", "input_type": "text"},
+      {"key": "sample_copy", "label_en": "Sample Copy", "label_zh": "现有文案", "default_value": "捕捉每一个动人瞬间，留下永恒回忆。", "default_value_en": "Capture every moment, keep it forever.", "input_type": "textarea"},
+      {"key": "brand_color", "label_en": "Brand Color", "label_zh": "品牌色", "default_value": "#C9A961", "default_value_en": "#C9A961", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "blog-post-writer",
+    "title_en": "Blog Post Writer & SEO Builder",
+    "title_zh": "博客文章撰写与 SEO 生成器",
+    "subtitle": "Write a complete 1500-word SEO-optimized blog post with intro, headers, conclusion, and meta tags from a topic",
+    "category": "marketing",
+    "difficulty": "easy",
+    "estimated_minutes": 20,
+    "boss_tip": "AI 写的文章不要直接发。读一遍把 \"As an AI...\" 这种词删掉，加进你的真实经历，才能避开 Google 反 AI 内容惩罚。",
+    "prompt_body": "你是一位资深 B2B 内容写手，专门为东南亚中小企业写既能 SEO、又有真实价值的博客文章。\n\n请就主题 \"{blog_topic}\" 为 {company_name}（{company_industry}）写一篇 ≥1500 字的博客文章。\n\n目标读者：{target_reader}\n主关键词：{primary_keyword}\n次要关键词：{secondary_keywords}\n文章目的：{article_goal}\n\n## 文章结构\n\n### 标题\n带数字、关键词、好奇钩子的吸引性标题（≤60 字符）\n\n### Meta Description\n≤155 字符，含主关键词与行动呼吁\n\n### 引言（≤100 字）\n- Hook：用问题、惊人数字、或具体场景\n- 痛点：读者为什么需要这篇文章\n- 承诺：读完能学到什么\n\n### 正文（5-7 个 H2 段落）\n每段：\n- 一个具体的小标题（含相关关键词）\n- 200-300 字\n- 至少一个具体例子或案例\n- 一个项目符号列表 / 对比表 / 引用\n- 段落与段落之间用过渡句\n\n请确保文章结构包含：\n- 一个 \"为什么这件事重要\" 段\n- 一个 \"常见误区\" 段\n- 一个 \"实操步骤\"（编号列表）段\n- 一个 \"真实案例\" 段\n- 一个 \"工具与资源\" 段\n\n### 结论（≤150 字）\n- 总结核心 takeaways（3 点）\n- 行动呼吁\n- 引导读者评论 / 订阅 / 联系\n\n### FAQ 段（5-6 个常见问题）\n回答 People Also Ask 中的相关问题，每个答案 50-80 字。\n\n### Schema.org Article + FAQ JSON-LD\n附上完整的 JSON-LD 代码可直接贴入 head。\n\n### 内链建议\n根据 {existing_pages}，建议 5 个内链锚文本与目标页面。\n\n### 图片与 ALT 文字\n建议 4 张图片的位置与 ALT 文字。\n\n注意：文风要像马来西亚本地人写的，不要太书面化，不要用 \"如上所述\"、\"总而言之\" 这种翻译腔。",
+    "prompt_body_en": "Write a ≥1500-word SEO blog post for {company_name} ({company_industry}) on \"{blog_topic}\". Target reader: {target_reader}. Primary keyword: {primary_keyword}. Secondary: {secondary_keywords}. Goal: {article_goal}.\n\nStructure: Title ≤60 chars with number/keyword/hook; meta description ≤155 chars; intro ≤100 words with hook, pain, promise; 5-7 H2 sections (200-300 words each, with example, list/table/quote, transition); must include 'Why It Matters', 'Common Mistakes', 'Step-by-Step', 'Real Case Study', 'Tools & Resources' sections; conclusion ≤150 words with 3 takeaways and CTA; 5-6 FAQ items (50-80 words each); Article + FAQ JSON-LD schema; 5 internal link anchors from {existing_pages}; 4 image positions with ALT text.\n\nVoice: Malaysian local, conversational, no translation-ese.",
+    "preview_prompt": "Show a published blog post page on a Malaysian SME consulting site. Hero has title 'How to Hire Your First Employee in Malaysia (2026 Guide)', meta info (author, 8 min read, date), table of contents on the left sidebar, body with H2 headings, callout boxes, comparison tables, FAQ accordion at the bottom, and related posts. Use a clean editorial layout with Inter font.",
+    "tags": ["marketing", "content", "seo", "automation"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "智咨企业顾问 Sdn Bhd", "default_value_en": "BrightAdvise Consulting Sdn Bhd", "input_type": "text"},
+      {"key": "company_industry", "label_en": "Industry", "label_zh": "行业", "default_value": "中小企业管理咨询", "default_value_en": "SME management consulting", "input_type": "text"},
+      {"key": "blog_topic", "label_en": "Blog Topic", "label_zh": "博客主题", "default_value": "2026 年马来西亚中小企业如何聘请第一个员工（完整指南）", "default_value_en": "How to hire your first employee in Malaysia (2026 Guide)", "input_type": "text"},
+      {"key": "target_reader", "label_en": "Target Reader", "label_zh": "目标读者", "default_value": "刚要规模化的小生意老板", "default_value_en": "Small business owners about to scale up", "input_type": "text"},
+      {"key": "primary_keyword", "label_en": "Primary Keyword", "label_zh": "主关键词", "default_value": "马来西亚 聘请员工", "default_value_en": "hire employee Malaysia", "input_type": "text"},
+      {"key": "secondary_keywords", "label_en": "Secondary Keywords", "label_zh": "次要关键词", "default_value": "EPF, SOCSO, EIS, employment contract", "default_value_en": "EPF, SOCSO, EIS, employment contract", "input_type": "text"},
+      {"key": "article_goal", "label_en": "Article Goal", "label_zh": "文章目的", "default_value": "吸引咨询服务的潜在客户", "default_value_en": "Attract consulting service leads", "input_type": "text"},
+      {"key": "existing_pages", "label_en": "Existing Pages", "label_zh": "网站现有页面", "default_value": "/services/payroll, /blog/sst-guide, /contact", "default_value_en": "/services/payroll, /blog/sst-guide, /contact", "input_type": "textarea"}
+    ]
+  },
+  {
+    "slug": "tax-deduction-tracker-malaysia",
+    "title_en": "Malaysia Tax Deduction Tracker",
+    "title_zh": "马来西亚税务扣除追踪系统",
+    "subtitle": "Track tax-deductible expenses, capital allowances, and SST throughout the year for easy LHDN filing",
+    "category": "finance",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "每张 receipt 当天就拍照上传。等到年尾才整理你一定漏掉一半，那都是白白多交的税。",
+    "prompt_body": "你是一位马来西亚特许会计师与税务顾问，专门为中小企业做税务规划。\n\n为 {company_name}（{business_type}，{annual_revenue} 年营收）构建一个税务扣除追踪系统，覆盖 LHDN 个人所得税与公司所得税常见的可扣除项目。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Tailwind 4 + shadcn/ui\n- Supabase（expenses, categories, capital_assets, sst_returns 表）\n- 票据存储：Supabase Storage（receipt 图片）\n- OCR：可选用 Claude API 自动从 receipt 图片提取金额、日期、商家\n\n## 核心功能\n\n### 1. /expenses 费用追踪\n- 表单录入：日期、商家、金额、SST 含税、类别、描述、附件\n- 类别（基于 LHDN 公司税扣除项目）：\n  - 雇员薪酬（EPF/SOCSO/EIS 含）\n  - 租金 / 水电 / 网络\n  - 营销与广告\n  - 培训费\n  - 专业服务费（律师、会计师）\n  - 维修保养\n  - 折旧资产（电脑、办公设备）\n  - 招待费（部分可扣除）\n  - 旅行与差旅\n  - 慈善捐款（注册组织）\n- 上传 receipt 图片 → OCR 自动填表\n- 列表视图：按类别、日期、金额排序与筛选\n\n### 2. /assets 资本性资产 (Capital Allowances)\n- 录入资产：购买日期、金额、类别（厂房机械 / 办公设备 / 车辆）\n- 自动计算 IA（Initial Allowance 20%）+ AA（Annual Allowance 14% 或类别对应比例）\n- 显示每年余额与累计扣除\n\n### 3. /sst SST 销项与进项\n- 销项税：销售时收的 SST\n- 进项税：购买时付的 SST（部分可申报抵扣）\n- 按月/季汇总生成 SST-02 报表数据\n\n### 4. /reports 报表\n- 年度可扣除费用汇总（按类别）\n- 资本津贴明细\n- 估算应税收入与节省税额\n- 导出 CSV 给会计师 / 报税员\n\n### 5. /admin/categories 自定义类别\n根据 LHDN 最新指南维护类别清单\n\n## 重要业务逻辑\n- 招待费只有 50% 可扣除（自动算）\n- 折旧资产用 LHDN 标准比例\n- 慈善捐款检查机构是否已注册 7%（核对 LHDN 列表）\n- 全年总收入 ≤ RM 50M 的 SME，第一笔 RM 150,000 应税收入按 15% 税率\n\n请生成完整代码、Supabase 迁移、种子分类数据，并附一份年度税务报告 PDF 模板。",
+    "prompt_body_en": "Build a Malaysian tax deduction tracker for {company_name} ({business_type}, {annual_revenue} revenue) covering LHDN deductible categories.\n\nStack: Next.js 16 + TS, Tailwind + shadcn, Supabase (expenses, categories, capital_assets, sst_returns), Supabase Storage for receipts, optional Claude API OCR.\n\nFeatures: /expenses with category dropdowns based on LHDN business deductions (employee comp inc EPF/SOCSO/EIS, rent/utilities, marketing, training, professional fees, repairs, depreciable assets, entertainment 50% only, travel, registered charity); receipt upload with OCR autofill; /assets capital allowances with auto IA 20% + AA 14% (or category rate); /sst input/output SST tracking with monthly/quarterly SST-02 export; /reports yearly summary by category, capital allowances, estimated tax saved, CSV export; /admin/categories LHDN-aligned management.\n\nLogic: entertainment 50% deductible, capital allowances at LHDN rates, charity validation against approved list, SME 15% rate on first RM 150K taxable.\n\nGenerate full code, Supabase migration, seed categories, annual tax report PDF template.",
+    "preview_prompt": "Show a tax tracker dashboard for 'Hong Tat Sdn Bhd' for FY2025. Top cards show: Total Deductible Expenses RM 234,500, Capital Allowances RM 18,200, Estimated Tax Saved RM 64,000. Below is a category breakdown bar chart and a recent transactions table with receipt thumbnails. Sidebar shows quick-add expense button highlighted in yellow. Use clean Malaysian SME-style branding.",
+    "tags": ["finance", "tax", "malaysia", "compliance", "supabase", "full-app"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达贸易 Sdn Bhd", "default_value_en": "Hong Tat Trading Sdn Bhd", "input_type": "text"},
+      {"key": "business_type", "label_en": "Business Type", "label_zh": "业务类型", "default_value": "进出口贸易", "default_value_en": "Import & export trading", "input_type": "text"},
+      {"key": "annual_revenue", "label_en": "Annual Revenue", "label_zh": "年营收", "default_value": "RM 4,500,000", "default_value_en": "RM 4,500,000", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "profit-loss-statement-generator",
+    "title_en": "Profit & Loss Statement Generator",
+    "title_zh": "损益表生成器",
+    "subtitle": "Generate a clean monthly P&L statement from your raw transactions with side-by-side period comparison",
+    "category": "finance",
+    "difficulty": "medium",
+    "estimated_minutes": 45,
+    "boss_tip": "P&L 的目的不是给老板看的，是给你看清楚哪里在赚钱、哪里在烧钱。每个月跟会计要一份，自己用 5 分钟看一遍。",
+    "prompt_body": "你是一位资深财务总监，擅长把复杂的会计报表变成老板能看懂的损益表。\n\n为 {company_name}（{business_size}）构建一个月度损益表生成系统。会计帐本数据来自 {data_source}。\n\n## 技术栈\n- Next.js + TypeScript\n- Supabase（transactions, accounts, periods 表）\n- 表格：shadcn/ui Table\n- 图表：recharts\n- PDF 导出：react-pdf 或 html2pdf\n\n## 数据模型\n- `accounts`: id, code, name, type (revenue/cogs/opex/other_income/other_expense/tax)\n- `transactions`: id, date, account_id, debit, credit, description, reference, period_id\n- `periods`: id, name, start_date, end_date, status (open/closed)\n\n## 损益表结构（标准格式）\n```\n营业收入 (Revenue)\n  - 主营业务收入\n  - 其他业务收入\n  小计 Revenue\n\n营业成本 (COGS)\n  - 直接材料\n  - 直接人工\n  - 制造费用\n  小计 COGS\n\n毛利 (Gross Profit) = Revenue - COGS\n毛利率 (GP Margin) = Gross Profit / Revenue × 100%\n\n营业费用 (Operating Expenses)\n  - 销售费用\n  - 管理费用\n  - 财务费用\n  小计 OpEx\n\n营业利润 (Operating Profit) = GP - OpEx\n营业利润率 = Operating Profit / Revenue × 100%\n\n营业外收入 (Other Income)\n营业外支出 (Other Expense)\n\n税前利润 (Profit Before Tax)\n所得税\n净利润 (Net Profit)\n净利润率 = Net Profit / Revenue × 100%\n```\n\n## 页面\n1. **/transactions** 录入交易（手动 / CSV 导入）\n2. **/pl/[period]** 查看某个月份 P&L\n   - 三栏对比：本月 / 上月 / 同期去年\n   - 变化金额 + 变化百分比（红绿）\n   - 关键比率（GP%、OP%、NP%）\n   - 收入与成本饼图\n   - 趋势线图（近 12 个月净利）\n   - 「为什么变化」AI 注解（若启用 Claude API）\n3. **/pl/print** 打印版 P&L（A4 PDF）\n4. **/admin/accounts** 科目管理（chart of accounts）\n5. **/admin/import** CSV 批量导入交易\n\n## 业务逻辑\n- 期间锁定：closed 期间不可再录入\n- 异常告警：同比变化超过 30% 自动标红并写入 review queue\n- 多公司：支持多个 entity（如不同分店、不同子公司）合并报表\n\n请生成完整代码、Supabase 迁移、3 个月份的种子数据（含 ~50 条交易），与 PDF 模板。",
+    "prompt_body_en": "Build a monthly P&L statement generator for {company_name} ({business_size}). Data source: {data_source}.\n\nStack: Next.js + TS, Supabase (accounts, transactions, periods), shadcn Table, recharts, react-pdf.\n\nP&L structure: Revenue → COGS → Gross Profit + GP% → OpEx (selling, admin, finance) → Operating Profit + OP% → Other Income/Expense → PBT → Tax → Net Profit + NP%.\n\nPages: /transactions entry (manual/CSV), /pl/[period] with 3-column comparison (this month / last month / same month last year), variance $ and %, key ratios, revenue/cost pie, 12-month trend, optional AI variance commentary; /pl/print A4 PDF; /admin/accounts CoA management; /admin/import CSV bulk import.\n\nLogic: closed periods locked, >30% variance flagged, multi-entity consolidation.\n\nGenerate full code, Supabase migration, 3 months seed (~50 transactions), PDF template.",
+    "preview_prompt": "Show a P&L statement page for 'Hong Tat Trading Sdn Bhd' for January 2026 with three columns: Jan 2026, Dec 2025, Jan 2025. Each row shows account, current month value, variance % in green/red. Below the table is a 12-month net profit line chart and a revenue breakdown donut chart. Top right has 'Export PDF' and 'Export Excel' buttons in yellow.",
+    "tags": ["finance", "accounting", "reporting", "pdf", "dashboard"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达贸易 Sdn Bhd", "default_value_en": "Hong Tat Trading Sdn Bhd", "input_type": "text"},
+      {"key": "business_size", "label_en": "Business Size", "label_zh": "公司规模", "default_value": "20 人小型贸易公司", "default_value_en": "20-person small trading company", "input_type": "text"},
+      {"key": "data_source", "label_en": "Data Source", "label_zh": "数据来源", "default_value": "现有 SQL Account 软件 CSV 导出", "default_value_en": "Existing SQL Account CSV export", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "petty-cash-tracker",
+    "title_en": "Petty Cash Tracker",
+    "title_zh": "零用金追踪系统",
+    "subtitle": "Track petty cash transactions with receipt photos, categories, and weekly reconciliation",
+    "category": "finance",
+    "difficulty": "easy",
+    "estimated_minutes": 30,
+    "boss_tip": "零用金最容易出问题。规定每张超过 RM 20 一定要 receipt + 拍照，没拍照不报销，员工就会自动拍照。",
+    "prompt_body": "你是一位资深内审员，擅长设计简单又防舞弊的零用金管理流程。\n\n为 {company_name}（共 {office_count} 个办公地点）打造一个零用金追踪系统。\n\n## 技术栈\n- Next.js + TypeScript\n- Tailwind + shadcn/ui\n- Supabase（petty_cash_funds, transactions, categories）\n- Storage：上传 receipt 图片\n\n## 核心功能\n\n### 1. /funds 资金池管理\n- 每个办公地点一个 fund，记录 fund holder（出纳）\n- 显示当前余额、已用金额、即将补充提醒\n\n### 2. /transactions 录入\n- 表单：日期、金额、类别（办公用品、餐饮、交通、客户招待、其他）、商家、用途、附件\n- 必填：金额超过 RM 20 一定要拍照上传 receipt\n- 自动扣减 fund 余额\n\n### 3. /reconciliation 周度对账\n- 系统计算：期初余额 - 已支出 = 应有余额\n- 出纳输入：实际数现金\n- 差异分析：超过 RM 5 触发 review\n- 经理签字（数字签名）\n\n### 4. /reimbursement 补充申请\n- 余额低于 {threshold} 自动提醒补充\n- 生成补充申请单 PDF（含期间所有支出汇总）\n- 老板审批后标记 reimbursed\n\n### 5. /reports 报表\n- 按类别月度汇总\n- 按办公地点对比\n- 异常交易（无 receipt、超额、频繁同商家）\n\n## RLS\n- Fund holder 只能操作自己的 fund\n- 经理与会计可看全部\n- 老板可审批补充申请\n\n## 业务逻辑\n- 当日 reset：每天 18:00 不能补录前一天的交易（防舞弊）\n- 拒收：手动输入金额 ≠ receipt OCR 金额时弹窗提醒\n- 月底自动生成对账单与待报销清单\n\n请生成完整代码、Supabase 迁移、3 个办公地点的种子数据。",
+    "prompt_body_en": "Build a petty cash tracker for {company_name} with {office_count} locations.\n\nStack: Next.js + TS, Tailwind + shadcn, Supabase (petty_cash_funds, transactions, categories), Supabase Storage for receipts.\n\nFeatures: /funds (one per location, with holder, balance, refill alerts), /transactions entry (date, amount, category, vendor, purpose, attachment; >RM 20 requires receipt photo), /reconciliation weekly with calculated vs actual cash and >RM 5 variance flag, /reimbursement when balance drops below {threshold} with auto refill request PDF, /reports by category/location/anomaly.\n\nRLS: holders see only their fund, managers/accountants see all, owner approves refills.\n\nLogic: 18:00 cutoff prevents back-dating, OCR mismatch warns, month-end auto reconciliation. Generate full code, migration, 3 location seeds.",
+    "preview_prompt": "Show a petty cash tracker dashboard for 'Hong Tat Sdn Bhd' showing 3 location cards with current balance: KL HQ RM 380, Penang RM 150 (low - red), JB RM 290. Below is a recent transactions table with receipt thumbnail, category badges, amount, and 'reconciled' status. Top right has 'Add Transaction' button in yellow.",
+    "tags": ["finance", "petty-cash", "compliance", "supabase-rls"],
+    "industries": ["general", "services", "retail"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达贸易 Sdn Bhd", "default_value_en": "Hong Tat Trading Sdn Bhd", "input_type": "text"},
+      {"key": "office_count", "label_en": "Office Locations", "label_zh": "办公地点数", "default_value": "3", "default_value_en": "3", "input_type": "number"},
+      {"key": "threshold", "label_en": "Refill Threshold", "label_zh": "补充门槛", "default_value": "RM 200", "default_value_en": "RM 200", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "accounts-receivable-aging",
+    "title_en": "Accounts Receivable Aging Report",
+    "title_zh": "应收账款账龄分析系统",
+    "subtitle": "Track outstanding invoices by aging bucket (0-30, 31-60, 61-90, 90+ days) with auto-reminder workflow",
+    "category": "finance",
+    "difficulty": "medium",
+    "estimated_minutes": 60,
+    "boss_tip": "超过 60 天的钱，每多一天就少 1% 的回收率。所以 30 天就要发第一封提醒，不要等。",
+    "prompt_body": "你是一位资深财务总监，专门帮中小企业改善现金流。\n\n为 {company_name} 构建一个应收账款账龄分析与催收系统。预计 {invoice_volume}。\n\n## 技术栈\n- Next.js 16 + TypeScript\n- Supabase（customers, invoices, payments, reminder_logs）\n- 邮件：Resend 或 Nodemailer\n- WhatsApp：可选用 wa.link 生成深度链接\n\n## 数据模型\n- `customers`: id, name, contact_person, email, phone, payment_terms_days\n- `invoices`: id, invoice_number, customer_id, issue_date, due_date, total, status (draft/sent/paid/partial/overdue), notes\n- `payments`: id, invoice_id, amount, paid_at, method, reference\n- `reminder_logs`: id, invoice_id, sent_at, channel (email/whatsapp), template_id\n\n## 页面\n\n### 1. /aging 账龄分析仪表盘\n- 4 个 bucket 卡片：当前 (0-30) / 31-60 / 61-90 / 90+\n- 每个卡片：金额总数 + 发票数 + 比例\n- 颜色：绿 → 黄 → 橙 → 红\n- Top 10 客户欠款排行\n- 总应收 / 总逾期 / 平均账龄（DSO）\n\n### 2. /invoices 发票列表\n- 按客户、状态、账龄筛选\n- 每行可点击发送提醒按钮\n- 批量操作：选中多张发送提醒\n\n### 3. /invoices/[id] 发票详情\n- 客户信息、发票详情、付款记录、提醒历史、备注\n- 添加付款（部分付款支持）\n- 发送提醒按钮（选邮件 / WhatsApp）\n\n### 4. /reminders 提醒模板\n- 4 个不同口吻的模板（友好 → 严肃）\n- 7/14/30/60 天 4 个时间点\n- 自动调度：每天 09:00 检查并发送\n\n### 5. /reports 报表\n- 月度回收率\n- 平均收款天数 DSO 趋势\n- 客户付款行为评分（A/B/C/D）\n- 导出 Excel 给会计\n\n## 业务逻辑\n- 自动账龄分类：基于 issue_date / due_date\n- DSO 计算：(应收余额 / 总销售) × 期间天数\n- 客户评分：A 总在期内付款；B 偶尔逾期 ≤14 天；C 经常逾期 30 天；D 严重逾期\n- 信用控制：D 级客户下新单时弹窗警告\n\n请生成完整代码、Supabase 迁移、5 个客户与 20 张不同账龄的发票示例数据，并附 4 套提醒邮件模板（中英）。",
+    "prompt_body_en": "Build an AR aging system for {company_name} handling {invoice_volume}.\n\nStack: Next.js 16 + TS, Supabase (customers, invoices, payments, reminder_logs), Resend email, optional wa.link WhatsApp.\n\nPages: /aging dashboard with 4 bucket cards (0-30, 31-60, 61-90, 90+) colored green→red, top 10 debtor ranking, DSO; /invoices filterable list with bulk reminder; /invoices/[id] detail with payment entry and reminder history; /reminders 4 templates (friendly→firm) auto-scheduled at 7/14/30/60 days, daily 09:00 cron; /reports monthly recovery rate, DSO trend, customer scoring A-D, Excel export.\n\nLogic: auto bucket by due_date, DSO = (AR balance / total sales) × period days, customer scoring (A always on time, B occasional ≤14d, C habitual 30d, D severe), credit control popup blocks new orders for D-rated.\n\nGenerate full code, Supabase migration, 5 customers + 20 invoices with varied aging, 4 reminder templates (CN/EN).",
+    "preview_prompt": "Show an AR aging dashboard with 4 bucket cards: Current 0-30 days RM 145,200 (green), 31-60 RM 38,500 (yellow), 61-90 RM 22,100 (orange), 90+ RM 12,800 (red). Below is a top 10 debtors table with customer name, oldest invoice date, total owed, last reminder, and 'Send WhatsApp Reminder' button. DSO trend line chart on the right showing improvement from 52 days to 38 days over 6 months.",
+    "tags": ["finance", "invoice", "automation", "dashboard", "compliance"],
+    "industries": ["services", "general"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达贸易 Sdn Bhd", "default_value_en": "Hong Tat Trading Sdn Bhd", "input_type": "text"},
+      {"key": "invoice_volume", "label_en": "Invoice Volume", "label_zh": "发票数量", "default_value": "每月 50-80 张发票", "default_value_en": "50-80 invoices per month", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "exchange-rate-converter",
+    "title_en": "Multi-Currency Exchange Rate Converter",
+    "title_zh": "多币种汇率换算工具",
+    "subtitle": "Real-time currency converter with rate history charts and import-cost calculator for trading businesses",
+    "category": "finance",
+    "difficulty": "easy",
+    "estimated_minutes": 30,
+    "boss_tip": "汇率每天查 3 次：早上 9 点、中午 1 点、下午 5 点。最大波动通常发生在伦敦市场开市后。",
+    "prompt_body": "你是一位资深贸易公司财务，专门帮进出口商优化结汇时机。\n\n为 {trader_name}（{trade_categories}）构建一个多币种汇率工具，支持 RM、USD、SGD、CNY、EUR、JPY、GBP 等。\n\n## 技术栈\n- Next.js + TypeScript\n- Tailwind + shadcn/ui\n- 汇率 API：https://api.exchangerate-api.com 或 Open Exchange Rates（免费 tier）\n- Supabase 缓存历史汇率 + 用户偏好\n- recharts 显示历史趋势\n\n## 核心功能\n\n### 1. /converter 即时换算\n- 输入金额 + 选源币种 + 选目标币种 → 显示换算结果\n- 显示当前汇率与中间价、买入价、卖出价（如果 API 提供）\n- 与昨日对比（涨/跌 %）\n- 收藏常用货币对\n\n### 2. /chart 汇率走势\n- 默认 RM/USD 7 天 / 30 天 / 90 天走势\n- 支持任意币种对比较\n- 标记本月最高 / 最低 / 平均\n- 显示历史 1 年与 3 年对比\n\n### 3. /import-cost 进口成本计算器\n- 输入：商品价格（外币）、数量、汇率、运费、保险、关税 %、SST 6%\n- 输出：到岸成本（CIF）、含税成本、单件成本（RM）\n- \"汇率敏感性\"：模拟汇率上升/下降 5%/10% 对成本的影响\n\n### 4. /alerts 汇率告警\n- 设定目标汇率（如 USD/MYR < 4.30）\n- 触发邮件 / WhatsApp 通知\n- 可设定 \"低于 / 高于 / 区间\" 三种条件\n\n### 5. /history 个人换算历史\n- 记录每次换算\n- 月度汇总（总换算金额、平均汇率、节省/多付的金额）\n\n## 业务逻辑\n- 汇率缓存 1 小时（避免 API 超额）\n- 显示数据时间戳与来源\n- 周末显示「市场休市」提示\n- 多语言：RM 在马来西亚习惯写在前（RM 100），其他货币写在后（100 USD）\n\n请生成完整代码与种子的常用币种对配置。",
+    "prompt_body_en": "Build a multi-currency converter for {trader_name} ({trade_categories}) supporting MYR, USD, SGD, CNY, EUR, JPY, GBP.\n\nStack: Next.js + TS, Tailwind + shadcn, exchangerate-api or Open Exchange Rates, Supabase rate cache + user prefs, recharts.\n\nFeatures: /converter instant conversion with mid/buy/sell rates, day-over-day change, favorite pairs; /chart 7/30/90 day trends with high/low/avg markers and 1Y/3Y comparison; /import-cost calculator (foreign price × qty × rate + freight + insurance + duty + 6% SST → CIF and per-unit RM cost) with ±5%/10% sensitivity; /alerts target rate with email/WhatsApp triggers (below/above/range); /history personal log with monthly summary.\n\nLogic: 1-hour cache, source/timestamp display, weekend market closed notice, currency formatting (RM prefix, others suffix).\n\nGenerate full code with seeded common currency pairs.",
+    "preview_prompt": "Show a currency converter UI with USD → MYR conversion: input '5,000 USD' → output 'RM 23,475', current rate 4.6950, change today +0.12%. Below is a 30-day chart of USD/MYR with the line showing recent rise. Right sidebar lists favorite pairs (USD/MYR, SGD/MYR, CNY/MYR) with mini sparklines. Bottom shows an import cost calculator widget.",
+    "tags": ["finance", "currency", "trading", "calculator"],
+    "industries": ["general", "ecommerce", "services"],
+    "variables": [
+      {"key": "trader_name", "label_en": "Trader Name", "label_zh": "贸易商名称", "default_value": "宏达进出口 Sdn Bhd", "default_value_en": "Hong Tat Import & Export Sdn Bhd", "input_type": "text"},
+      {"key": "trade_categories", "label_en": "Trade Categories", "label_zh": "经营品类", "default_value": "电子产品与小家电进口", "default_value_en": "Consumer electronics and small appliances import", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "business-loan-roi-calculator",
+    "title_en": "Business Loan & ROI Calculator",
+    "title_zh": "商业贷款与投资回报计算器",
+    "subtitle": "Compare loan offers, calculate effective interest rate, monthly repayments, and ROI for the investment",
+    "category": "finance",
+    "difficulty": "easy",
+    "estimated_minutes": 25,
+    "boss_tip": "银行说的 \"flat rate\" 不是真实利率。一定要算 \"effective rate\"，往往是 flat rate 的 1.8 倍。",
+    "prompt_body": "你是一位资深企业融资顾问，专门帮中小企业谈贷款。\n\n为 {borrower_name} 构建一个贷款比较与 ROI 评估工具，准备申请 {loan_amount} 用于 {loan_purpose}。\n\n## 技术栈\n- Next.js + TypeScript\n- Tailwind + shadcn/ui\n- 数学：ts-financial 或自行实现 amortization\n- 图表：recharts\n- 导出 PDF：react-pdf\n\n## 核心功能\n\n### 1. /loans/compare 贷款比较\n表格输入 3-5 家银行报价：\n- 贷款本金\n- 利率类型（reducing balance / flat rate）\n- 利率 %\n- 期限（月数）\n- 处理费 / 印花税 / 法律费\n- 提前还款罚金\n\n输出：\n- Effective Annual Rate（EAR）— 真实成本\n- 月供\n- 总利息\n- 总成本（本金 + 利息 + 所有费用）\n- 5 家并排对比，最划算的高亮\n\n### 2. /loans/amortization 还款明细\n- 月度还款表：本金 / 利息 / 余额\n- 累计利息走势线图\n- 提前还款模拟器（输入额外还款金额，看节省多少利息）\n\n### 3. /roi ROI 计算器\n- 输入：贷款用途、预期增加的收入、预期增加的成本\n- 计算：净增利润、回本时间（payback period）、IRR、NPV（5 年）\n- 风险评估：营收下降 20% 后 ROI 是否仍为正\n- 「值得借吗？」自动评分（A 强烈建议 / B 可考虑 / C 风险高 / D 不建议）\n\n### 4. /reports 决策报告\n生成 1 页 PDF 报告，包含：\n- 借款摘要\n- 贷款比较\n- ROI 分析\n- 风险评估\n- 建议\n（这份报告可以拿去给会计师或合伙人一起评估）\n\n## 业务逻辑\n- Reducing balance 公式：M = P × r(1+r)^n / ((1+r)^n - 1)\n- Flat rate to EAR 转换公式\n- 印花税：马来西亚贷款印花税 0.5%\n- 法律费阶梯：根据 Solicitors Remuneration Order 计算\n\n请生成完整代码与一个完整的贷款决策示例。",
+    "prompt_body_en": "Build a loan comparison and ROI tool for {borrower_name} considering a {loan_amount} loan for {loan_purpose}.\n\nStack: Next.js + TS, Tailwind + shadcn, ts-financial or custom amortization, recharts, react-pdf.\n\nFeatures: /loans/compare table for 3-5 bank offers (principal, rate type reducing/flat, rate %, term, fees, early payoff penalty) computing EAR, monthly payment, total interest, total cost; /loans/amortization monthly breakdown table + cumulative interest chart + early payoff simulator; /roi calculator (loan use, expected revenue increase, expected cost increase) computing net profit gain, payback period, IRR, 5-year NPV, sensitivity analysis (-20% revenue), worth-it grade A-D; /reports 1-page PDF decision report.\n\nLogic: reducing balance M = P × r(1+r)^n / ((1+r)^n - 1), flat-to-EAR conversion, 0.5% Malaysian stamp duty, SRO legal fee tiers.\n\nGenerate full code and a complete loan decision example.",
+    "preview_prompt": "Show a loan comparison page with 4 bank offers in side-by-side cards: Maybank RM 500K @ 5.5% (recommended - green border), CIMB @ 5.8%, Public Bank @ 5.6%, RHB @ 6.0%. Each card shows monthly payment, total interest, EAR, and a 'most savings' badge on the winner. Below is an ROI calculator showing payback period 28 months and a green 'Worth It - Grade A' verdict.",
+    "tags": ["finance", "loan", "calculator", "roi", "pdf"],
+    "industries": ["general", "services"],
+    "variables": [
+      {"key": "borrower_name", "label_en": "Borrower Name", "label_zh": "借款人名称", "default_value": "宏达制造 Sdn Bhd", "default_value_en": "Hong Tat Manufacturing Sdn Bhd", "input_type": "text"},
+      {"key": "loan_amount", "label_en": "Loan Amount", "label_zh": "贷款金额", "default_value": "RM 500,000", "default_value_en": "RM 500,000", "input_type": "text"},
+      {"key": "loan_purpose", "label_en": "Loan Purpose", "label_zh": "贷款用途", "default_value": "购买新生产线（增加 30% 产能）", "default_value_en": "Buy new production line (30% capacity increase)", "input_type": "textarea"}
+    ]
+  },
+  {
+    "slug": "visitor-management-system",
+    "title_en": "Visitor Management System",
+    "title_zh": "访客登记管理系统",
+    "subtitle": "Replace the paper logbook at your reception with a tablet-based check-in, host notification, and badge printing system",
+    "category": "operations",
+    "difficulty": "medium",
+    "estimated_minutes": 75,
+    "boss_tip": "一定要拍访客照片或扫 IC。万一公司里发生事情，你才能查谁来过。这是最简单的安全保护。",
+    "prompt_body": "你是一位资深企业 IT 系统设计师，专门为东南亚办公楼打造无纸化访客管理系统。\n\n为 {company_name}（{office_type}）构建一个 iPad 平板友好的访客登记系统。\n\n## 技术栈\n- Next.js 16 App Router + TypeScript\n- Tailwind 4 + shadcn/ui（大触控目标，适合平板）\n- Supabase（visitors, visits, employees, blacklist 表）\n- Storage：访客头像\n- 通知：Resend 邮件 + WhatsApp（wa.link）\n- 打印：Brother 标签打印机或 PDF 直接打印\n\n## 数据模型\n- `employees`: id, name, department, email, phone, photo_url, is_active\n- `visitors`: id, name, company, ic_number (last 4 digits only for privacy), phone, email, photo_url\n- `visits`: id, visitor_id, host_employee_id, purpose, expected_arrival, actual_check_in, check_out, badge_number, status\n- `blacklist`: id, ic_partial, name, reason, blocked_at\n\n## 页面\n\n### 1. /kiosk 平板入口（公开页面，无需登录）\n- 大按钮 \"我要登记\" → 选择访问类型（拜访员工 / 送货 / 应聘 / 其他）\n- 输入：姓名、公司、IC 末 4 位、手机、邮箱（可选）\n- 拍照：使用 iPad 前镜头，存到 Supabase Storage\n- 选择被访员工：搜索 + 头像 + 部门\n- 同意条款：电子签名 + 隐私政策\n- 系统检查 blacklist，若命中显示「请联系前台」\n- 通过后：显示欢迎页 + 倒计时打印 badge\n\n### 2. /kiosk/checkout 离场登记\n- 扫描 badge QR 码 / 输入手机 → 标记 check_out\n- 显示 \"谢谢光临 + 当日访问时长\"\n\n### 3. /reception 前台仪表盘\n- 当前在场访客列表（实时）\n- 当日访问记录\n- 紧急疏散名单（一键导出 PDF）\n- 提前预约的访客名单\n\n### 4. /admin/visitors 访客管理\n- 历史访客搜索\n- 访问频次统计\n- 黑名单管理\n\n### 5. /admin/employees 员工管理\n- CRUD\n- 上传头像\n- 假期 / 出差状态（不显示在 kiosk 选择）\n\n## 自动化\n- 访客 check-in → 立即邮件 + WhatsApp 通知被访员工（含访客照片、用途、预计停留时间）\n- 超过预计离场时间 30 分钟未 check-out → 提醒前台\n- 每日 18:00 自动 check-out 所有未离场访客（避免数据脏）\n\n## 隐私 & 合规\n- IC 只存末 4 位\n- 访客头像 30 天后自动删除（GDPR / PDPA 友好）\n- 数据导出：访客可申请删除自己的所有记录\n\n## RLS\n- /kiosk 页面允许 anon SELECT employees（只能看到 active 的）和 INSERT visits\n- 其他页面要求 authenticated\n\n请生成完整代码、Supabase 迁移、隐私政策文本（中英）、badge 打印模板。",
+    "prompt_body_en": "Build a tablet-based visitor management system for {company_name} ({office_type}).\n\nStack: Next.js 16 App Router + TS, Tailwind 4 + shadcn (large touch targets), Supabase (visitors, visits, employees, blacklist), Storage for photos, Resend + wa.link notifications, Brother label printer or PDF printing.\n\nPages: /kiosk public iPad entry (visit type → name/company/last-4-IC/phone → iPad selfie → host search with avatars → e-sign consent → blacklist check → welcome + badge print); /kiosk/checkout scan badge QR or phone; /reception dashboard with current visitors, today's log, evac list PDF, pre-booked visitors; /admin/visitors history search and blacklist; /admin/employees CRUD with photos and away status.\n\nAutomation: instant email + WhatsApp to host on check-in with photo, purpose, ETA; 30-min overdue alert; auto-checkout at 18:00.\n\nPrivacy: only last 4 IC digits stored, photos auto-delete after 30 days, data export/delete on request.\n\nRLS: kiosk allows anon SELECT employees and INSERT visits; other pages require authenticated.\n\nGenerate full code, migration, privacy policy (CN/EN), badge print template.",
+    "preview_prompt": "Show a tablet kiosk welcome screen with a friendly 'Welcome / 欢迎光临' headline, two big touch buttons '我要登记 Check In' (yellow) and '我要离场 Check Out' (gray). Below shows current visitors count: 8 in office. Status bar at top shows company logo and time. Use generous white space and large 64px touch targets. Background has subtle company branding.",
+    "tags": ["operations", "security", "supabase-rls", "tablet", "full-app"],
+    "industries": ["general", "services", "manufacturing"],
+    "variables": [
+      {"key": "company_name", "label_en": "Company Name", "label_zh": "公司名称", "default_value": "宏达企业 Sdn Bhd", "default_value_en": "Hong Tat Enterprise Sdn Bhd", "input_type": "text"},
+      {"key": "office_type", "label_en": "Office Type", "label_zh": "办公类型", "default_value": "200 人企业总部 + 工厂", "default_value_en": "200-person HQ with attached factory", "input_type": "text"}
+    ]
+  },
+  {
+    "slug": "parking-management-system",
+    "title_en": "Parking Lot Management System",
+    "title_zh": "停车场管理系统",
+    "subtitle": "Track parking spaces, monthly subscribers, hourly visitors, and generate revenue reports for small parking lots",
+    "category": "operations",
+    "difficulty": "medium",
+    "estimated_minutes": 75,
+    "boss_tip": "月票客户值得给折扣，因为他们提供稳定现金流。但月票占车位上限不能超过总位的 70%，否则散客没位停。",
+    "prompt_body": "你是一位资深停车场运营专家。\n\n为 {operator_name}（管理 {lot_count} 个停车场，共 {total_spaces} 个车位）构建一个停车场管理系统。\n\n## 技术栈\n- Next.js + TypeScript\n- Tailwind + shadcn/ui\n- Supabase（lots, spaces, subscribers, sessions, transactions 表）\n- 二维码：qrcode 包\n- 支付：Stripe / Billplz（马来西亚本地）\n\n## 数据模型\n- `lots`: id, name, address, total_spaces, hourly_rate, daily_max, monthly_rate\n- `spaces`: id, lot_id, space_number, type (regular/premium/disabled/ev_charging), status\n- `subscribers`: id, name, vehicle_plate, phone, lot_id, plan_start, plan_end, monthly_fee, status\n- `sessions`: id, lot_id, vehicle_plate, entry_time, exit_time, paid_amount, payment_method, subscriber_id (nullable)\n- `transactions`: id, session_id, subscriber_id, amount, paid_at, method\n\n## 页面\n\n### 1. /entry 入场登记（运营员手机端）\n- 输入车牌 → 系统检查\n  - 如果是 active subscriber → 直接放行，记录 entry_time\n  - 否则 → 创建 session，打印 / 发送二维码票据\n- 显示当前空位数\n\n### 2. /exit 出场结算\n- 扫描二维码或输入车牌\n- 系统计算：(exit_time - entry_time) × hourly_rate，封顶 daily_max\n- 选择支付方式：现金 / TnG eWallet / Boost / 信用卡\n- 标记付款 → 闸门开启\n\n### 3. /dashboard 实时仪表盘\n- 当前占用率（饼图）\n- 当日营收\n- 当日车流量（小时柱状图）\n- 平均停车时长\n- 空位数 by lot\n\n### 4. /subscribers 月票管理\n- CRUD：增删改月票客户\n- 自动续期提醒（到期前 7 天 WhatsApp 通知）\n- 暂停 / 终止月票\n- 月度账单\n\n### 5. /reports 报表\n- 每日 / 每周 / 每月营收\n- 散客 vs 月票 占比\n- 高峰时段分析\n- 异常告警（车位错误、未付费离场）\n\n## 业务逻辑\n- 时长计算：取整到下一个小时\n- 月票客户次数无限，但其车位若被占用 24h 不动，标记 \"长期占用\" 给运营员检查\n- 散客二维码 4 小时不付款 → 短信提醒\n- 容量上限：当占用率 ≥ 95% 显示 \"FULL\" 告示\n\n请生成完整代码、3 个停车场种子数据（含 50 个月票客户）、二维码票据模板。",
+    "prompt_body_en": "Build a parking lot management system for {operator_name} managing {lot_count} lots and {total_spaces} spaces.\n\nStack: Next.js + TS, Tailwind + shadcn, Supabase (lots, spaces, subscribers, sessions, transactions), qrcode, Stripe or Billplz.\n\nPages: /entry mobile attendant entry (plate lookup → subscriber pass-through or session + QR receipt); /exit (scan QR/plate → compute (exit - entry) × hourly capped at daily max → cash/TnG/Boost/card → open gate); /dashboard (occupancy pie, today revenue, hourly inflow bars, avg duration, free spaces by lot); /subscribers CRUD with renewal reminders 7 days before expiry, suspend/cancel, monthly bills; /reports daily/weekly/monthly with subscriber vs casual mix, peak times, exception alerts.\n\nLogic: round up to next hour, flag subscriber spaces idle 24h, SMS reminder if unpaid 4h, FULL display at ≥95% occupancy.\n\nGenerate full code, 3 lots seed (50 subscribers), QR receipt template.",
+    "preview_prompt": "Show a parking lot dashboard for 'KL Sentral Lot A' with: occupancy gauge 87% (red), today revenue RM 2,485, current free spaces 39/300, hourly traffic bar chart from 7am-10pm peaking at noon. Below is a real-time list of recent entries and exits with vehicle plate, time, duration, amount. Top right has 3 lot tabs and a 'Manual Entry' button.",
+    "tags": ["operations", "parking", "payments", "dashboard", "full-app"],
+    "industries": ["services", "general"],
+    "variables": [
+      {"key": "operator_name", "label_en": "Operator Name", "label_zh": "运营商名称", "default_value": "宏达停车场管理 Sdn Bhd", "default_value_en": "Hong Tat Parking Operations Sdn Bhd", "input_type": "text"},
+      {"key": "lot_count", "label_en": "Number of Lots", "label_zh": "停车场数量", "default_value": "3", "default_value_en": "3", "input_type": "number"},
+      {"key": "total_spaces", "label_en": "Total Spaces", "label_zh": "总车位数", "default_value": "850", "default_value_en": "850", "input_type": "number"}
+    ]
+  }
+]
