@@ -1,5 +1,8 @@
 # AI Prompt Library
 
+## Workflow rules
+- **After every `git push origin main`**: check both Vercel deploy state and Supabase health. Vercel: use `mcp__cfd1027f-69d2-4919-a98d-e5d3f80bed61__list_deployments` with `projectId: prj_hHG4OtuZOdPqaOhHXbJW9LBzhDVW` and `teamId: team_Esx0el0aHMbDHeefyENtFnaP` (first deployment should be READY and reference the latest commit SHA). Supabase: run a quick health node script to confirm table counts and the `search_prompts` RPC still works. If either is broken, diagnose before moving on.
+
 ## Project
 A web-based AI Prompt Library for Vibe Coding workshop students (Malaysian Chinese SME owners). Browse, search, filter, and copy proven prompts with variable substitution.
 
