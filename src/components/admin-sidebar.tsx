@@ -23,6 +23,7 @@ import {
   Video,
   Users,
   MessageSquare,
+  Settings,
 } from "lucide-react";
 
 const navItems = [
@@ -32,6 +33,7 @@ const navItems = [
   { href: "/admin/categories", label: "Prompt Categories", icon: FolderOpen },
   { href: "/admin/courses", label: "Courses", icon: Video },
   { href: "/admin/feedback", label: "Feedback", icon: MessageSquare },
+  { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 function NavContent({ onNavigate }: { onNavigate?: () => void }) {

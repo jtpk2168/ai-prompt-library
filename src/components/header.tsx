@@ -14,6 +14,8 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [libraryEnabled, setLibraryEnabled] = useState(true);
+  const [coursesEnabled, setCoursesEnabled] = useState(true);
 
   useEffect(() => {
     const supabase = createClient();
@@ -27,6 +29,17 @@ export function Header() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
+
+    // Fetch module visibility settings
+    fetch("/api/v1/settings")
+      .then((r) => r.json())
+      .then((s: Record<string, string>) => {
+        setLibraryEnabled(s.library_enabled !== "false");
+        setCoursesEnabled(s.courses_enabled !== "false");
+      })
+      .catch(() => {
+        // Silent fallback — default to enabled
+      });
 
     return () => subscription.unsubscribe();
   }, []);
@@ -53,25 +66,29 @@ export function Header() {
         </Link>
 
         <nav className="flex items-center gap-1">
-          <Link
-            href="/library"
-            className={cn(
-              "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary",
-              pathname.startsWith("/library") && "bg-secondary"
-            )}
-          >
-            Library
-          </Link>
-          <Link
-            href="/courses"
-            className={cn(
-              "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary",
-              pathname.startsWith("/courses") && "bg-secondary"
-            )}
-          >
-            <Video className="h-4 w-4" />
-            <span className="hidden sm:inline">Courses</span>
-          </Link>
+          {libraryEnabled && (
+            <Link
+              href="/library"
+              className={cn(
+                "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary",
+                pathname.startsWith("/library") && "bg-secondary"
+              )}
+            >
+              Library
+            </Link>
+          )}
+          {coursesEnabled && (
+            <Link
+              href="/courses"
+              className={cn(
+                "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary",
+                pathname.startsWith("/courses") && "bg-secondary"
+              )}
+            >
+              <Video className="h-4 w-4" />
+              <span className="hidden sm:inline">Courses</span>
+            </Link>
+          )}
         </nav>
 
         {/* Right side: auth */}
