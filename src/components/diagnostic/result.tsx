@@ -5,11 +5,14 @@ import Link from "next/link";
 import {
   DEPTS,
   IND_LABELS,
+  IND_LABELS_EN,
   SOL_TYPE_LABEL,
+  SOL_TYPE_LABEL_EN,
   SOL_TYPE_STYLE,
+  translatePainZhToEn,
 } from "@/lib/diagnostic-data";
 import {
-  STEPS,
+  getSteps,
   buildDeptPrompt,
   rankedSolutionsForDept,
 } from "@/lib/diagnostic-prompts";
@@ -62,11 +65,30 @@ export function Result({
   });
   const [copied, setCopied] = useState<string | null>(null);
 
-  const industryLabel =
+  const isEn = locale === "en";
+  const industryLabelLocalized =
+    industry === "other"
+      ? industryCustom.trim()
+      : (isEn ? IND_LABELS_EN[industry] : IND_LABELS[industry]) || "";
+  // Chinese industry label is required for prompt-building (canonical)
+  const industryLabelZh =
     industry === "other"
       ? industryCustom.trim()
       : IND_LABELS[industry] || "";
   const displayCompany = company.trim() || t("yourCompany");
+  const solTypeLabel = isEn ? SOL_TYPE_LABEL_EN : SOL_TYPE_LABEL;
+  const steps = getSteps(isEn ? "en" : "zh");
+
+  const solName = (s: { name: string; name_en: string }) =>
+    isEn ? s.name_en : s.name;
+  const solDesc = (s: { desc: string; desc_en: string }) =>
+    isEn ? s.desc_en : s.desc;
+  const solOutcome = (s: { outcome: string; outcome_en: string }) =>
+    isEn ? s.outcome_en : s.outcome;
+  const deptName = (key: DeptKey) =>
+    isEn ? DEPTS[key].name_en : DEPTS[key].name;
+  const painDisplay = (deptKey: DeptKey, pain: string) =>
+    isEn ? translatePainZhToEn(industry, deptKey, pain) : pain;
 
   const rankedDepts = useMemo(() => {
     const entries = [...selectedDepts]
@@ -165,7 +187,7 @@ export function Result({
     setTimeout(() => setCopied(null), 2200);
   };
 
-  // Library match renderer
+  // Library match renderer (uses localized solution text for matching relevance)
   const renderLibraryMatches = (sol: Solution) => {
     const matches = matchPromptsForSolution(sol, libraryPrompts, 2);
     if (matches.length === 0) return null;
@@ -266,18 +288,18 @@ export function Result({
                         borderColor: `${d.stroke}50`,
                       }}
                     >
-                      {d.name}
+                      {deptName(pick.deptKey)}
                     </span>
                   </div>
                   <div className="mb-1 text-sm font-semibold">
-                    {pick.solution.name}
+                    {solName(pick.solution)}
                   </div>
                   <div className="mb-1 text-[11px] leading-[1.5] text-slate-500">
                     {t("forPainLabel")}
-                    {pick.pain}
+                    {painDisplay(pick.deptKey, pick.pain)}
                   </div>
                   <div className="mb-3 text-xs font-medium leading-[1.5] text-emerald-700">
-                    → {pick.solution.outcome}
+                    → {solOutcome(pick.solution)}
                   </div>
                   <div className="mt-auto flex flex-wrap items-center gap-1.5">
                     <span
@@ -288,7 +310,7 @@ export function Result({
                         borderColor: style.border,
                       }}
                     >
-                      {SOL_TYPE_LABEL[pick.solution.type]}
+                      {solTypeLabel[pick.solution.type]}
                     </span>
                     <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
                       {t(EFFORT_LABEL_KEY(pick.solution.effort))}
@@ -327,7 +349,8 @@ export function Result({
               pains,
               industry,
               company,
-              industryLabel,
+              industryLabel: isEn ? industryLabelLocalized : industryLabelZh,
+              locale: isEn ? "en" : "zh",
             });
             const promptId = `prompt-${key}`;
             const deptHoursSaved = ranked.reduce(
@@ -358,7 +381,7 @@ export function Result({
                       borderColor: `${d.stroke}50`,
                     }}
                   >
-                    {d.name}
+                    {deptName(key)}
                   </span>
                   <span className="flex-1 truncate text-xs text-muted-foreground">
                     {t("deptSummary", {
@@ -432,18 +455,18 @@ export function Result({
                                         </span>
                                       )}
                                       <div className="text-sm font-semibold">
-                                        {sol.name}
+                                        {solName(sol)}
                                       </div>
                                     </div>
                                     <div className="mb-1.5 text-xs text-muted-foreground">
                                       {t("forPainLabel")}
-                                      {pain}
+                                      {painDisplay(key, pain)}
                                     </div>
                                     <div className="mb-1.5 text-[13px] leading-[1.6] text-muted-foreground">
-                                      {sol.desc}
+                                      {solDesc(sol)}
                                     </div>
                                     <div className="text-[12px] font-semibold leading-[1.5] text-emerald-700">
-                                      → {sol.outcome}
+                                      → {solOutcome(sol)}
                                     </div>
                                     {renderLibraryMatches(sol)}
                                   </div>
@@ -456,7 +479,7 @@ export function Result({
                                         borderColor: style.border,
                                       }}
                                     >
-                                      {SOL_TYPE_LABEL[sol.type]}
+                                      {solTypeLabel[sol.type]}
                                     </span>
                                     <span className="whitespace-nowrap rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
                                       {t(EFFORT_LABEL_KEY(sol.effort))}
@@ -483,7 +506,7 @@ export function Result({
           {t("stepsLabel")}
         </div>
         <div className="flex flex-col gap-2.5">
-          {STEPS.map((s, i) => (
+          {steps.map((s, i) => (
             <div
               key={i}
               className="flex gap-3.5 rounded-xl border bg-white p-4 shadow-sm"

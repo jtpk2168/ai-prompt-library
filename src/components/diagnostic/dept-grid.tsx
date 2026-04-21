@@ -3,6 +3,7 @@
 import { DEPTS, DEPT_ORDER } from "@/lib/diagnostic-data";
 import type { DeptKey } from "@/types/diagnostic";
 import { Check } from "lucide-react";
+import { useLocale } from "next-intl";
 
 interface DeptGridProps {
   selected: Set<DeptKey>;
@@ -10,6 +11,7 @@ interface DeptGridProps {
 }
 
 export function DeptGrid({ selected, onToggle }: DeptGridProps) {
+  const locale = useLocale();
   return (
     <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
       {DEPT_ORDER.map((key) => {
@@ -55,7 +57,7 @@ export function DeptGrid({ selected, onToggle }: DeptGridProps) {
               }`}
               style={isSelected ? { color: d.text } : undefined}
             >
-              {d.name}
+              {locale === "en" ? d.name_en : d.name}
             </div>
           </button>
         );

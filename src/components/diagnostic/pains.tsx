@@ -6,7 +6,7 @@ import type { DeptKey, IndustryKey } from "@/types/diagnostic";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Check, Plus, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function Pains({
   industry,
@@ -32,6 +32,7 @@ export function Pains({
   onNext: () => void;
 }) {
   const t = useTranslations("diagnostic");
+  const locale = useLocale();
   const [customDrafts, setCustomDrafts] = useState<Record<string, string>>({});
   const total = [...selectedDepts].reduce(
     (sum, k) => sum + (selectedPains[k]?.size ?? 0),
@@ -57,21 +58,25 @@ export function Pains({
         <div className="flex flex-col gap-4">
           {[...selectedDepts].map((key) => {
             const d = DEPTS[key];
-            const pains = getPainsForDept(industry, key);
+            // Canonical Chinese pains — always used as state keys
+            const painsZh = getPainsForDept(industry, key, "zh");
+            // Display pains — English in English locale, else Chinese (same as painsZh)
+            const painsDisplay =
+              locale === "en" ? getPainsForDept(industry, key, "en") : painsZh;
             const sel = selectedPains[key] ?? new Set<string>();
             const customs = (customPains[key] ?? []).filter(Boolean);
             const draft = customDrafts[key] ?? "";
             const deptSelectedCount = sel.size;
             // "Select all" toggles only the canned pains (customs are user-added)
-            const allCannedSelected = pains.every((p) => sel.has(p));
+            const allCannedSelected = painsZh.every((p) => sel.has(p));
 
             const handleSelectAll = () => {
               if (allCannedSelected) {
-                pains.forEach((p) => {
+                painsZh.forEach((p) => {
                   if (sel.has(p)) onTogglePain(key, p);
                 });
               } else {
-                pains.forEach((p) => {
+                painsZh.forEach((p) => {
                   if (!sel.has(p)) onTogglePain(key, p);
                 });
               }
@@ -102,7 +107,7 @@ export function Pains({
                       borderColor: `${d.stroke}50`,
                     }}
                   >
-                    {d.name}
+                    {locale === "en" ? d.name_en : d.name}
                   </span>
                   <span className="text-xs font-medium text-slate-600">
                     {t("deptSelectedCount", { count: deptSelectedCount })}
@@ -172,13 +177,14 @@ export function Pains({
                     );
                   })}
 
-                  {/* Canned pains */}
-                  {pains.map((pain) => {
-                    const selected = sel.has(pain);
+                  {/* Canned pains — state keyed by Chinese, label per locale */}
+                  {painsZh.map((painKey, idx) => {
+                    const painLabel = painsDisplay[idx] ?? painKey;
+                    const selected = sel.has(painKey);
                     return (
                       <div
-                        key={pain}
-                        onClick={() => onTogglePain(key, pain)}
+                        key={painKey}
+                        onClick={() => onTogglePain(key, painKey)}
                         className={`flex cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-3 transition-all ${
                           selected
                             ? "border-yellow-400 bg-yellow-50"
@@ -196,7 +202,7 @@ export function Pains({
                             <Check className="h-3 w-3 text-slate-900" />
                           )}
                         </div>
-                        <div className="text-sm">{pain}</div>
+                        <div className="text-sm">{painLabel}</div>
                       </div>
                     );
                   })}

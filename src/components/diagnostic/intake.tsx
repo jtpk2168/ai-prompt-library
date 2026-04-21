@@ -1,13 +1,17 @@
 "use client";
 
-import { DEPTS, INDUSTRY_OPTIONS } from "@/lib/diagnostic-data";
+import {
+  DEPTS,
+  INDUSTRY_OPTIONS,
+  INDUSTRY_OPTIONS_EN,
+} from "@/lib/diagnostic-data";
 import type { DeptKey, IndustryKey } from "@/types/diagnostic";
 import { DeptGrid } from "./dept-grid";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function Intake({
   industry,
@@ -31,6 +35,9 @@ export function Intake({
   onNext: () => void;
 }) {
   const t = useTranslations("diagnostic");
+  const locale = useLocale();
+  const industryOptions =
+    locale === "en" ? INDUSTRY_OPTIONS_EN : INDUSTRY_OPTIONS;
 
   return (
     <div className="mx-auto flex max-w-[860px] flex-col gap-7">
@@ -62,7 +69,7 @@ export function Intake({
                     className="rounded-full px-2.5 py-0.5 text-[11px] font-medium"
                     style={{ background: d.fill, color: d.text }}
                   >
-                    {d.name}
+                    {locale === "en" ? d.name_en : d.name}
                   </span>
                 );
               })}
@@ -86,7 +93,7 @@ export function Intake({
               onChange={(e) => onIndustry(e.target.value as IndustryKey)}
               className="h-10 w-full rounded-lg border border-input bg-white px-3 py-2 text-sm outline-none transition-colors focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100"
             >
-              {INDUSTRY_OPTIONS.map((opt) => (
+              {industryOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
                   {opt.label}
                 </option>

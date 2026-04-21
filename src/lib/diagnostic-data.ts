@@ -10,6 +10,7 @@ export const DEPTS: Record<DeptKey, Department> = {
   sales: {
     key: "sales",
     name: "销售",
+    name_en: "Sales",
     fill: "#ddeeff",
     stroke: "#4a90d9",
     text: "#1a5c9e",
@@ -19,10 +20,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "不知道现在卖得怎样",
       "不知道新客户从哪里来",
     ],
+    pains_en: [
+      "Leads fall through the cracks — no one follows up",
+      "Creating quotes is too slow",
+      "No clear view of current sales",
+      "Don't know where new customers come from",
+    ],
   },
   market: {
     key: "market",
     name: "市场 / 广告",
+    name_en: "Marketing / Ads",
     fill: "#ddf5e8",
     stroke: "#2e9e5e",
     text: "#1a6e3a",
@@ -32,10 +40,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "搞活动没有固定步骤",
       "每个平台都要重复发一次",
     ],
+    pains_en: [
+      "Writing social posts is too slow to keep up",
+      "Organizing ad data takes hours",
+      "No standard process for running campaigns",
+      "Have to repost the same content on every platform",
+    ],
   },
   service: {
     key: "service",
     name: "客服",
+    name_en: "Customer Service",
     fill: "#fff3d8",
     stroke: "#c88a18",
     text: "#8a5a08",
@@ -45,10 +60,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "回客户太慢，客人不开心",
       "常见问题没有地方集中放",
     ],
+    pains_en: [
+      "Answering the same questions over and over",
+      "Complaints slip through without follow-up",
+      "Reply too slowly, customers get upset",
+      "No central place for common FAQs",
+    ],
   },
   ops: {
     key: "ops",
     name: "日常运作",
+    name_en: "Daily Operations",
     fill: "#ede8ff",
     stroke: "#7050c8",
     text: "#4a2e9e",
@@ -58,10 +80,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "不知道同事做到哪里了",
       "各部门数据不通",
     ],
+    pains_en: [
+      "Daily steps rely on memory — things get missed",
+      "Important data is scattered across many tools",
+      "No visibility on teammates' progress",
+      "Departments don't share data",
+    ],
   },
   stock: {
     key: "stock",
     name: "库存",
+    name_en: "Inventory",
     fill: "#ffe8d8",
     stroke: "#c86020",
     text: "#8a3a08",
@@ -71,10 +100,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "进货出货没有记录",
       "库存和销量对不上",
     ],
+    pains_en: [
+      "Stock count relies on people — error-prone",
+      "Never sure when to reorder stock",
+      "No proper records for stock in / out",
+      "Stock levels and sales data don't match",
+    ],
   },
   finance: {
     key: "finance",
     name: "财务 / 钱",
+    name_en: "Finance / Money",
     fill: "#ffe0ee",
     stroke: "#c82868",
     text: "#8a1848",
@@ -84,10 +120,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "不知道钱从哪里漏走",
       "报销批得很慢",
     ],
+    pains_en: [
+      "Bookkeeping is manual — easy to miss entries",
+      "Month-end reconciliation takes days",
+      "Don't know where money is leaking",
+      "Expense approvals take too long",
+    ],
   },
   hr: {
     key: "hr",
     name: "人事",
+    name_en: "HR / People",
     fill: "#e8f8d8",
     stroke: "#4a9820",
     text: "#2a6808",
@@ -97,10 +140,17 @@ export const DEPTS: Record<DeptKey, Department> = {
       "整理打卡记录很花时间",
       "新员工入职没有固定流程",
     ],
+    pains_en: [
+      "Reviewing resumes takes hours — good ones get missed",
+      "Employee info is scattered everywhere",
+      "Organizing attendance records is tedious",
+      "No standard onboarding process",
+    ],
   },
   mgmt: {
     key: "mgmt",
     name: "老板 / 管理",
+    name_en: "Boss / Management",
     fill: "#eeeeea",
     stroke: "#888878",
     text: "#444438",
@@ -109,6 +159,12 @@ export const DEPTS: Record<DeptKey, Department> = {
       "看不到公司现在怎样",
       "做决定没有数据可以看",
       "每周报告要人手动做",
+    ],
+    pains_en: [
+      "Have to manually compile data from every dept",
+      "Can't see the company's current state",
+      "No data to back up decisions",
+      "Weekly reports are done manually",
     ],
   },
 };
@@ -197,6 +253,79 @@ export const IND_EXTRA: Partial<Record<IndustryKey, Partial<Record<DeptKey, stri
   },
 };
 
+export const IND_EXTRA_EN: Partial<Record<IndustryKey, Partial<Record<DeptKey, string>>>> = {
+  fnb: {
+    sales: "Customer acquisition is expensive, reservations taken by hand",
+    market: "Festival / promo posts can't keep up",
+    service: "Complaints pile up during busy hours",
+    ops: "Data across outlets isn't in one place",
+    stock: "Too much food waste, reordering is gut-feel",
+    finance: "Multiple payment methods make reconciliation messy",
+    hr: "Scheduling part-timers is a mess",
+    mgmt: "Can't see each outlet's daily performance",
+  },
+  retail: {
+    sales: "Online vs. in-store stock mismatch — oversold items",
+    market: "Can't produce copy for new products fast enough",
+    service: "Return / exchange process is clunky, customers unhappy",
+    ops: "Running promotions across platforms takes forever",
+    stock: "Bestsellers run out, slow movers pile up",
+    finance: "Platform commissions and refunds are a reconciliation mess",
+    hr: "Hiring temps in peak season is hard to manage",
+    mgmt: "Sales across platforms aren't in one view",
+  },
+  education: {
+    sales: "Follow-up after trial class is too slow",
+    market: "Enrollment copywriting never ends",
+    service: "Students keep asking the same questions",
+    ops: "Class scheduling and attendance tracking take hours",
+    stock: "Teaching materials and supplies are disorganized",
+    finance: "Tracking installment tuition is hard",
+    hr: "Coordinating part-time teachers' schedules is painful",
+    mgmt: "Can't see data at each stage of the enrollment funnel",
+  },
+  healthcare: {
+    sales: "Too many steps to book a new patient",
+    market: "Struggling to produce healthcare content",
+    service: "Follow-up reminders still require manual calls",
+    ops: "Consulting rooms and staff scheduling are hard to coordinate",
+    stock: "Drug expiry dates are hard to manage",
+    finance: "Insurance claims and self-pay billing are a mess",
+    hr: "Medical staff rostering is difficult",
+    mgmt: "Patient count and revenue take too long to surface",
+  },
+  professional: {
+    sales: "Enterprise follow-up cycle is too long",
+    market: "Can't produce expert content that's both good and fast",
+    service: "Clients constantly ask for project status",
+    ops: "Juggling multiple projects is exhausting",
+    stock: "No one reminds us when software licenses expire",
+    finance: "Invoicing and collections are slow",
+    hr: "Hiring good talent takes too long",
+    mgmt: "Can't see profit / loss per project",
+  },
+  manufacturing: {
+    sales: "Quoting and follow-up are both slow",
+    market: "Very little B2B marketing",
+    service: "After-sales handling is too slow",
+    ops: "Production progress and delivery dates are hard to track",
+    stock: "Raw material inventory is hard to get right",
+    finance: "Production cost and profit are hard to calculate",
+    hr: "Shop-floor scheduling and performance tracking is hard",
+    mgmt: "Can't see capacity and on-time delivery",
+  },
+  realestate: {
+    sales: "Too many enquiries, can't keep up",
+    market: "Writing property listings is too slow",
+    service: "Viewing appointments and follow-ups are disorganized",
+    ops: "Deal progress and contract docs are a mess",
+    stock: "Property data is outdated or incorrect",
+    finance: "Commission calculations and splits have errors",
+    hr: "Agent performance and targets are hard to track",
+    mgmt: "Overall deals and revenue lack visibility",
+  },
+};
+
 export const IND_LABELS: Record<IndustryKey, string> = {
   general: "",
   fnb: "餐饮",
@@ -206,6 +335,18 @@ export const IND_LABELS: Record<IndustryKey, string> = {
   professional: "专业服务",
   manufacturing: "工厂",
   realestate: "房地产",
+  other: "",
+};
+
+export const IND_LABELS_EN: Record<IndustryKey, string> = {
+  general: "",
+  fnb: "F&B",
+  retail: "Retail / E-commerce",
+  education: "Education",
+  healthcare: "Healthcare",
+  professional: "Professional Services",
+  manufacturing: "Manufacturing",
+  realestate: "Real Estate",
   other: "",
 };
 
@@ -221,14 +362,30 @@ export const INDUSTRY_OPTIONS: Array<{ value: IndustryKey; label: string }> = [
   { value: "other", label: "其他（自己写）" },
 ];
 
+export const INDUSTRY_OPTIONS_EN: Array<{ value: IndustryKey; label: string }> = [
+  { value: "general", label: "Select industry →" },
+  { value: "fnb", label: "F&B / Food & Beverage" },
+  { value: "retail", label: "Retail / E-commerce" },
+  { value: "education", label: "Education / Tuition" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "professional", label: "Professional Services" },
+  { value: "manufacturing", label: "Manufacturing" },
+  { value: "realestate", label: "Real Estate / Agency" },
+  { value: "other", label: "Other (type your own)" },
+];
+
 export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   sales: [
     {
       name: "客户跟进提醒",
+      name_en: "Lead Follow-Up Reminder",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "自动记下每个客户，到时间提醒你跟进，不会漏掉",
+      desc_en: "Auto-logs every customer and reminds you to follow up on time — no one slips through",
       outcome: "漏单率从 20% 降到 2% · 每月多抓 3–5 单",
+      outcome_en: "Lost-lead rate 20% → 2% · Catch 3–5 extra deals / month",
       impact: 9,
       effort: 3,
       hoursSavedPerMonth: 12,
@@ -236,10 +393,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "一键报价单",
+      name_en: "One-Click Quote",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "把报价方式告诉 Claude，输入客户要什么，10 秒写好报价单",
+      desc_en: "Tell Claude your pricing rules; enter what the customer wants and get a quote in 10 seconds",
       outcome: "报价时间从 30 分钟变 1 分钟",
+      outcome_en: "Quote time from 30 min → 1 min",
       impact: 7,
       effort: 1,
       hoursSavedPerMonth: 16,
@@ -247,10 +408,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "销售情况一页看",
+      name_en: "One-Page Sales Dashboard",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "一页看到每个客户跟到哪里，团队卖多少",
+      desc_en: "See every customer's status and what the team is closing — all in one view",
       outcome: "随时知道卖了多少 · 不用等月底报告",
+      outcome_en: "Know the numbers anytime · No waiting for month-end reports",
       impact: 7,
       effort: 7,
       hoursSavedPerMonth: 8,
@@ -258,10 +423,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "客户来源记录",
+      name_en: "Customer Source Tracker",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "自动记下客户从哪里来，月底看哪个渠道最好",
+      desc_en: "Auto-logs where each customer came from; month-end shows your best channel",
       outcome: "找出最赚钱的渠道 · 广告预算省 30%",
+      outcome_en: "Find the most profitable channel · Cut ad spend ~30%",
       impact: 6,
       effort: 3,
       hoursSavedPerMonth: 4,
@@ -271,10 +440,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   market: [
     {
       name: "AI 多平台写贴文",
+      name_en: "AI Multi-Platform Post Writer",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "一个主题，Claude 自动写 Facebook/IG/WhatsApp 几个版本，直接复制发",
+      desc_en: "One topic — Claude writes Facebook / IG / WhatsApp versions to copy and post",
       outcome: "一个贴文从 2 小时变 15 分钟",
+      outcome_en: "A single post from 2 hrs → 15 min",
       impact: 8,
       effort: 1,
       hoursSavedPerMonth: 20,
@@ -282,10 +455,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "广告数据自动日报",
+      name_en: "Automated Daily Ad Report",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "每天自动整理各平台广告数据，做成图表发到你的邮箱",
+      desc_en: "Auto-collects ad data from each platform daily, builds charts, emails to your inbox",
       outcome: "每天省 1 小时整理数据",
+      outcome_en: "Save ~1 hr / day on data cleanup",
       impact: 6,
       effort: 4,
       hoursSavedPerMonth: 22,
@@ -293,10 +470,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "活动计划生成器",
+      name_en: "Campaign Plan Generator",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "告诉 Claude 要做什么活动和预算，自动给你完整步骤和时间表",
+      desc_en: "Tell Claude the campaign goal and budget; get a full plan with timeline",
       outcome: "活动策划从 3 天变 2 小时",
+      outcome_en: "Campaign planning from 3 days → 2 hours",
       impact: 5,
       effort: 1,
       hoursSavedPerMonth: 6,
@@ -304,10 +485,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "多平台发贴助手",
+      name_en: "Multi-Platform Posting Helper",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "一份内容，Claude 改写成每个平台的版本，省 90% 时间",
+      desc_en: "One piece of content — Claude rewrites for each platform and saves 90% of your time",
       outcome: "发贴时间省 90%",
+      outcome_en: "Posting time down 90%",
       impact: 7,
       effort: 1,
       hoursSavedPerMonth: 16,
@@ -317,10 +502,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   service: [
     {
       name: "AI 快速回复",
+      name_en: "AI Quick Reply",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "把客户问题丢给 Claude，3 秒写好回复，看过就发",
+      desc_en: "Drop the customer question into Claude, get a reply in 3 seconds, review and send",
       outcome: "回复速度从 30 分钟变 3 秒",
+      outcome_en: "Reply speed from 30 min → 3 seconds",
       impact: 8,
       effort: 1,
       hoursSavedPerMonth: 25,
@@ -328,10 +517,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "客诉追踪板",
+      name_en: "Complaint Tracking Board",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "每个投诉都有人跟、有时间、做完没有，没做完自动提醒",
+      desc_en: "Every complaint has an owner, a timeline, and an auto-reminder if it isn't closed",
       outcome: "投诉漏跟从 15% 降到 0%",
+      outcome_en: "Dropped complaints from 15% → 0%",
       impact: 8,
       effort: 3,
       hoursSavedPerMonth: 8,
@@ -339,10 +532,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "回复速度报表",
+      name_en: "Response Time Report",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "自动算客服多久回一次，每周看报告找出问题",
+      desc_en: "Auto-measures support reply speed; weekly report surfaces the bottlenecks",
       outcome: "找出慢的地方 · 平均回复速度提升 50%",
+      outcome_en: "Find the slow spots · Avg response time up 50%",
       impact: 5,
       effort: 3,
       hoursSavedPerMonth: 4,
@@ -350,10 +547,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "AI 问答知识库",
+      name_en: "AI FAQ Knowledge Base",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "把常见问题给 Claude，客服用中文直接问，马上给答案",
+      desc_en: "Feed Claude your FAQs; staff ask in plain language and get instant answers",
       outcome: "新客服上手时间从 1 个月变 3 天",
+      outcome_en: "New-hire ramp-up from 1 month → 3 days",
       impact: 7,
       effort: 2,
       hoursSavedPerMonth: 18,
@@ -363,10 +564,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   ops: [
     {
       name: "工作步骤清单",
+      name_en: "Workflow Checklist",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "把所有工作步骤变成手机清单，做了打勾，不用靠记",
+      desc_en: "Turn every workflow into a mobile checklist — tick as you go, nothing forgotten",
       outcome: "出错率从 10% 降到 1%",
+      outcome_en: "Error rate from 10% → 1%",
       impact: 7,
       effort: 3,
       hoursSavedPerMonth: 10,
@@ -374,10 +579,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "每日数据自动日报",
+      name_en: "Daily Auto-Report",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "每天自动收集各部门数字，发到群组，不用等人整理",
+      desc_en: "Auto-collects each department's numbers and posts to your group chat",
       outcome: "每天省 2 小时整理报告",
+      outcome_en: "Save ~2 hrs / day on report assembly",
       impact: 7,
       effort: 4,
       hoursSavedPerMonth: 40,
@@ -385,10 +594,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "团队任务追踪板",
+      name_en: "Team Task Tracker",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "每件事谁做、几时完，快到期自动提醒",
+      desc_en: "Know who's doing what and when; deadlines auto-remind",
       outcome: "任务漏做从 20% 降到 3%",
+      outcome_en: "Missed tasks from 20% → 3%",
       impact: 6,
       effort: 3,
       hoursSavedPerMonth: 6,
@@ -396,10 +609,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "公司数据一页看",
+      name_en: "Company Data Dashboard",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "各部门数据集中一页，老板随时可以看",
+      desc_en: "All departments' data in one page — the boss can check anytime",
       outcome: "不用再等人汇报 · 每周省 4 小时",
+      outcome_en: "No more waiting for reports · Save ~4 hrs / week",
       impact: 8,
       effort: 8,
       hoursSavedPerMonth: 16,
@@ -409,10 +626,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   stock: [
     {
       name: "进出货记录系统",
+      name_en: "Stock In / Out System",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "进货出货都记下来，库存数自动算，不用再人工点货",
+      desc_en: "Record every stock movement; stock levels auto-update — no more manual counts",
       outcome: "盘点时间从 1 天变 1 小时",
+      outcome_en: "Stocktake from 1 day → 1 hour",
       impact: 9,
       effort: 7,
       hoursSavedPerMonth: 24,
@@ -420,10 +641,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "库存不够自动提醒",
+      name_en: "Low-Stock Auto-Alert",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "设定最低数量，少过就自动发邮件提醒，不用自己盯",
+      desc_en: "Set minimum levels; drop below and you get an email — no more watching",
       outcome: "断货次数从每月 5 次降到 0 次",
+      outcome_en: "Stockouts from 5 / month → 0",
       impact: 8,
       effort: 3,
       hoursSavedPerMonth: 6,
@@ -431,10 +656,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "进出货流水记录",
+      name_en: "Stock Transaction Log",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "每次进出货自动记时间，月底对账有完整记录",
+      desc_en: "Every in / out is auto-timestamped — full records at month-end",
       outcome: "月底对账从 2 天变 2 小时",
+      outcome_en: "Month-end reconciliation from 2 days → 2 hours",
       impact: 6,
       effort: 3,
       hoursSavedPerMonth: 12,
@@ -442,10 +671,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "库存 x 销量一页看",
+      name_en: "Inventory × Sales View",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "库存和销量连在一起看，什么断货、什么堆着，一眼看到",
+      desc_en: "See stock and sales together — instantly spot what's out and what's piling up",
       outcome: "滞销库存减 30% · 爆款不再断货",
+      outcome_en: "Slow-mover stock –30% · Bestsellers never out",
       impact: 9,
       effort: 8,
       hoursSavedPerMonth: 12,
@@ -455,10 +688,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   finance: [
     {
       name: "收支记录系统",
+      name_en: "Income / Expense Tracker",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "收钱出钱一录入就分类，月底一下就出报告",
+      desc_en: "Log a transaction and it's auto-categorized; month-end report is one click",
       outcome: "记账时间省 70%",
+      outcome_en: "Bookkeeping time down 70%",
       impact: 8,
       effort: 4,
       hoursSavedPerMonth: 20,
@@ -466,10 +703,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "月底对账自动报表",
+      name_en: "Auto Month-End Reconciliation",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "自动整理所有账，月底对账从几天变几分钟",
+      desc_en: "Auto-compiles every account — month-end goes from days to minutes",
       outcome: "月底对账从 3 天变 2 小时",
+      outcome_en: "Month-end from 3 days → 2 hours",
       impact: 9,
       effort: 4,
       hoursSavedPerMonth: 24,
@@ -477,10 +718,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "财务情况一页看",
+      name_en: "Financial Dashboard",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "每条业务赚多少亏多少，一目了然",
+      desc_en: "Profit / loss per line of business at a glance",
       outcome: "找出漏钱点 · 利润提升 5–15%",
+      outcome_en: "Find the leaks · Profit up 5–15%",
       impact: 9,
       effort: 8,
       hoursSavedPerMonth: 10,
@@ -488,10 +733,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "报销审批系统",
+      name_en: "Expense Approval System",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "员工申请报销，系统自动通知老板批，进度看得到",
+      desc_en: "Staff submit claims; system notifies the boss and the approval progress is visible",
       outcome: "报销审批从 5 天变 1 天",
+      outcome_en: "Approval time from 5 days → 1 day",
       impact: 5,
       effort: 3,
       hoursSavedPerMonth: 6,
@@ -501,10 +750,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   hr: [
     {
       name: "AI 简历筛选",
+      name_en: "AI Resume Screening",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "把工作要求和简历给 Claude，自动打分排序，10 分钟看 100 份",
+      desc_en: "Feed Claude the job spec and resumes — scored and ranked in 10 minutes for 100 CVs",
       outcome: "看简历时间从 8 小时变 10 分钟",
+      outcome_en: "Resume review from 8 hrs → 10 min",
       impact: 8,
       effort: 1,
       hoursSavedPerMonth: 16,
@@ -512,10 +765,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "员工资料系统",
+      name_en: "Employee Records System",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "所有员工资料集中一个地方，搜索就找得到，更新也方便",
+      desc_en: "All employee info centralized, searchable, and easy to update",
       outcome: "找员工资料时间省 90%",
+      outcome_en: "Finding employee info 90% faster",
       impact: 6,
       effort: 7,
       hoursSavedPerMonth: 8,
@@ -523,10 +780,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "打卡自动统计",
+      name_en: "Auto Attendance Rollup",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "打卡数据自动算，月底直接出考勤报告，不用人工整理",
+      desc_en: "Attendance data auto-aggregated — month-end report with no manual work",
       outcome: "考勤整理从 2 天变 30 分钟",
+      outcome_en: "Attendance prep from 2 days → 30 min",
       impact: 7,
       effort: 3,
       hoursSavedPerMonth: 16,
@@ -534,10 +795,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "新员工入职清单",
+      name_en: "New-Hire Onboarding Checklist",
       type: "light",
       tool: "Claude Code 小工具",
+      tool_en: "Small Claude Code tool",
       desc: "每个入职步骤都记下，谁做、几时做、做到哪里，都看得到",
+      desc_en: "Every onboarding step tracked — who, when, and progress all visible",
       outcome: "入职步骤漏做从 30% 降到 0%",
+      outcome_en: "Missed onboarding steps from 30% → 0%",
       impact: 5,
       effort: 3,
       hoursSavedPerMonth: 4,
@@ -547,10 +812,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
   mgmt: [
     {
       name: "AI 数据摘要",
+      name_en: "AI Data Summary",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "各部门把数据给 Claude，自动写成 3 分钟看完的摘要",
+      desc_en: "Each dept sends data to Claude; gets auto-written 3-minute digests",
       outcome: "看完所有部门报告从 2 小时变 3 分钟",
+      outcome_en: "Reading all reports from 2 hrs → 3 min",
       impact: 7,
       effort: 1,
       hoursSavedPerMonth: 16,
@@ -558,10 +827,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "公司一页看板",
+      name_en: "Company One-Page Dashboard",
       type: "full",
       tool: "Vibe Coding 系统",
+      tool_en: "Vibe Coding system",
       desc: "所有部门重要数字一页看完，自动更新，不用等人报告",
+      desc_en: "Every department's key numbers in one view, auto-updated — no more waiting",
       outcome: "决策速度提升 5 倍 · 不用再等周报",
+      outcome_en: "Decisions 5× faster · No more weekly-report wait",
       impact: 10,
       effort: 9,
       hoursSavedPerMonth: 20,
@@ -569,10 +842,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "数据分析报告",
+      name_en: "Data Analysis Report",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "把过去的数据给 Claude，自动分析趋势，给你带结论的报告",
+      desc_en: "Give Claude your historical data; get trend analysis with conclusions",
       outcome: "分析报告从 1 星期变 30 分钟",
+      outcome_en: "Analysis report from 1 week → 30 min",
       impact: 8,
       effort: 1,
       hoursSavedPerMonth: 20,
@@ -580,10 +857,14 @@ export const PAIN_SOLUTIONS: Record<DeptKey, Solution[]> = {
     },
     {
       name: "AI 自动周报",
+      name_en: "AI Auto Weekly Report",
       type: "ai",
       tool: "直接用 Claude",
+      tool_en: "Use Claude directly",
       desc: "各部门输入数字，Claude 自动整合，出标准周报",
+      desc_en: "Each dept inputs numbers; Claude aggregates into a standard weekly report",
       outcome: "做周报时间从半天变 15 分钟",
+      outcome_en: "Weekly report from half a day → 15 min",
       impact: 6,
       effort: 2,
       hoursSavedPerMonth: 8,
@@ -598,14 +879,70 @@ export const SOL_TYPE_LABEL: Record<SolutionType, string> = {
   full: "完整系统 · Claude 帮你做",
 };
 
+export const SOL_TYPE_LABEL_EN: Record<SolutionType, string> = {
+  ai: "No code · Use Claude directly",
+  light: "Small tool · Claude builds it",
+  full: "Full system · Claude builds it",
+};
+
 export const SOL_TYPE_STYLE: Record<SolutionType, { bg: string; border: string; text: string }> = {
   ai: { bg: "#eaf7f0", border: "rgba(26,122,74,0.25)", text: "#1a7a4a" },
   light: { bg: "#ddeeff", border: "rgba(74,144,217,0.35)", text: "#1a5c9e" },
   full: { bg: "#fdf6e3", border: "rgba(212,160,23,0.3)", text: "#d4a017" },
 };
 
-export function getPainsForDept(industry: IndustryKey, dept: DeptKey): string[] {
-  const base = DEPTS[dept].pains;
-  const extra = IND_EXTRA[industry]?.[dept];
-  return extra ? [extra, ...base.slice(1)] : base;
+/**
+ * Pains for (industry, dept). Industry-specific override replaces the first canned pain.
+ * Locale-aware: returns the Chinese or English array.
+ */
+export function getPainsForDept(
+  industry: IndustryKey,
+  dept: DeptKey,
+  locale: "zh" | "en" = "zh",
+): string[] {
+  const d = DEPTS[dept];
+  const baseZh = d.pains;
+  const baseEn = d.pains_en;
+  const extraZh = IND_EXTRA[industry]?.[dept];
+  const extraEn = IND_EXTRA_EN[industry]?.[dept];
+
+  if (locale === "en") {
+    return extraEn ? [extraEn, ...baseEn.slice(1)] : baseEn;
+  }
+  return extraZh ? [extraZh, ...baseZh.slice(1)] : baseZh;
+}
+
+/**
+ * Given a Chinese canned pain (as stored in state / matched against PAIN_SOLUTIONS by
+ * index), return its English counterpart for display. Used when rendering previously
+ * selected pains in a different locale than the one they were selected in.
+ *
+ * Returns the original string if no translation is found (e.g. custom user-typed pains).
+ */
+export function translatePainZhToEn(
+  industry: IndustryKey,
+  dept: DeptKey,
+  pain: string,
+): string {
+  const zhList = getPainsForDept(industry, dept, "zh");
+  const enList = getPainsForDept(industry, dept, "en");
+  const idx = zhList.indexOf(pain);
+  if (idx >= 0 && enList[idx]) return enList[idx];
+  return pain; // custom / unknown
+}
+
+/**
+ * Inverse of translatePainZhToEn — useful for look-up when the canonical key (state)
+ * is Chinese but the displayed label is English.
+ */
+export function translatePainEnToZh(
+  industry: IndustryKey,
+  dept: DeptKey,
+  pain: string,
+): string {
+  const enList = getPainsForDept(industry, dept, "en");
+  const zhList = getPainsForDept(industry, dept, "zh");
+  const idx = enList.indexOf(pain);
+  if (idx >= 0 && zhList[idx]) return zhList[idx];
+  return pain;
 }
